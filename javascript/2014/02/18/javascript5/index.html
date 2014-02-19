@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+         复习JavaScript5 -  Code Monkey‘s Blog
+    </title>
+    
+    <meta name="description" content="复习JavaScript">
+    <meta name="author" content="ltchronus">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- bootstrap2 -->
+    <!--   <link href="/assets/themes/hooligan/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/hooligan/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"> -->
+    <!-- bootstrap3 -->
+    <link href="/assets/themes/hooligan/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/hooligan/bootstrap3/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/themes/hooligan/css-social-buttons/css/zocial.stripped.css">
+    <link href="/assets/themes/hooligan/css/pygments.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/hooligan/css/darkstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/hooligan/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+
+    <!-- fav and touch icons -->
+    <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+ 
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand brand" href="/">Code Monkey‘s Blog</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">         
+                <ul class="nav navbar-nav">
+                      
+
+
+  
+    
+      
+      	
+      	<li><a href="/about.html">About Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="divider-vertical"></li>
+                    
+                    <li>
+                        <a href="https://github.com/ltchronus" class="zocial github icon" target="_blank">
+                            <span class="hidden-desktop">Github</span>
+                        </a>
+                    </li>
+                         
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        <div >
+            
+
+<div class="page-header">
+  <h1>
+    复习JavaScript5 
+    
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-10 day content">
+    <!-- <pre class="prettyprint linenums"> -->
+    <h1>立即调用的函数表达式 复习</h1>
+
+<h2>函数的执行上下文</h2>
+
+<blockquote>
+<p>在JavaScript里，任何function在执行的时候都会创建一个执行上下文，因为为function声明的变量和声明的function有可能只在该function内部。  </p>
+</blockquote>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 由于该function里返回了另外一个function，其中这个function可以访问自由变量i</span>
+<span class="c1">// 所有说，这个内部的function实际上是有权限可以调用内部的对象。</span>
+
+<span class="kd">function</span> <span class="nx">makeCounter</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 只能在makeCounter内部访问i</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">++</span><span class="nx">i</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">// 注意，counter和counter2是不同的实例，分别有自己范围内的i。</span>
+
+<span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="nx">makeCounter</span><span class="p">();</span>
+<span class="nx">counter</span><span class="p">();</span> <span class="c1">// logs: 1</span>
+<span class="nx">counter</span><span class="p">();</span> <span class="c1">// logs: 2</span>
+
+<span class="kd">var</span> <span class="nx">counter2</span> <span class="o">=</span> <span class="nx">makeCounter</span><span class="p">();</span>
+<span class="nx">counter2</span><span class="p">();</span> <span class="c1">// logs: 1</span>
+<span class="nx">counter2</span><span class="p">();</span> <span class="c1">// logs: 2</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">// 引用错误：i没有defind（因为i是存在于makeCounter内部。</span>
+</code></pre></div>
+<!-- more -->
+
+<h2>自执行函数表达式</h2>
+
+<p>之前的提过函数表达式可以立即运行，类似下面：</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 下面2个括弧()都会立即执行</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">}</span> <span class="p">());</span> <span class="c1">// 推荐使用这个</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">})();</span> <span class="c1">// 但是这个也是可以用的</span>
+
+<span class="c1">// 由于括弧()和JS的&amp;&amp;，异或，逗号等操作符是在函数表达式和函数声明上消除歧义的</span>
+<span class="c1">// 所以一旦解析器知道其中一个已经是表达式了，其它的也都默认为表达式了</span>
+<span class="c1">// 不过，请注意下一章节的内容解释</span>
+
+<span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">10</span><span class="p">;</span> <span class="p">}</span> <span class="p">();</span>
+<span class="kc">true</span> <span class="o">&amp;&amp;</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">}</span> <span class="p">();</span>
+<span class="mi">0</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">}</span> <span class="p">();</span>
+
+<span class="c1">// 如果你不在意返回值，或者不怕难以阅读</span>
+<span class="c1">// 你甚至可以在function前面加一元操作符号</span>
+
+<span class="o">!</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">}</span> <span class="p">();</span>
+<span class="o">~</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">}</span> <span class="p">();</span>
+<span class="o">-</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">}</span> <span class="p">();</span>
+<span class="o">+</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">}</span> <span class="p">();</span>
+
+<span class="c1">// 还有一个情况，使用new关键字,也可以用，但我不确定它的效率</span>
+<span class="c1">// http://twitter.com/kuvos/status/18209252090847232</span>
+
+<span class="k">new</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">}</span>
+<span class="k">new</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* code */</span> <span class="p">}</span> <span class="p">()</span> <span class="c1">// 如果需要传递参数，只需要加上括弧()</span>
+</code></pre></div>
+<h2>闭包的神奇</h2>
+
+<p>自执行的函数表达式当然也是函数，所以它理所应当可以传入参数。闭包的神奇就在于它可以有效地保存闭包内的状态。</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 这个代码是错误的，因为变量i从来就没背locked住</span>
+<span class="c1">// 相反，当循环执行以后，我们在点击的时候i才获得数值</span>
+<span class="c1">// 因为这个时候i操真正获得值</span>
+<span class="c1">// 所以说无论点击那个连接，最终显示的都是I am link #10（如果有10个a元素的话）</span>
+
+<span class="kd">var</span> <span class="nx">elems</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">elems</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">elems</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;I am link #&#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">);</span>
+    <span class="p">},</span> <span class="s1">&#39;false&#39;</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="c1">// 这个是可以用的，因为他在自执行函数表达式闭包内部</span>
+<span class="c1">// i的值作为locked的索引存在，在循环执行结束以后，尽管最后i的值变成了a元素总数（例如10）</span>
+<span class="c1">// 但闭包内部的lockedInIndex值是没有改变，因为他已经执行完毕了</span>
+<span class="c1">// 所以当点击连接的时候，结果是正确的</span>
+
+<span class="kd">var</span> <span class="nx">elems</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">elems</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">lockedInIndex</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="nx">elems</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;I am link #&#39;</span> <span class="o">+</span> <span class="nx">lockedInIndex</span><span class="p">);</span>
+        <span class="p">},</span> <span class="s1">&#39;false&#39;</span><span class="p">);</span>
+
+    <span class="p">})(</span><span class="nx">i</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="c1">// 你也可以像下面这样应用，在处理函数那里使用自执行函数表达式</span>
+<span class="c1">// 而不是在addEventListener外部</span>
+<span class="c1">// 但是相对来说，上面的代码更具可读性</span>
+
+<span class="kd">var</span> <span class="nx">elems</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">elems</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">elems</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">lockedInIndex</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;I am link #&#39;</span> <span class="o">+</span> <span class="nx">lockedInIndex</span><span class="p">);</span>
+        <span class="p">};</span>
+    <span class="p">})(</span><span class="nx">i</span><span class="p">),</span> <span class="s1">&#39;false&#39;</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<hr>
+
+<p>感谢@汤姆大叔 的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript系列》</a>指导我学习！</p>
+
+    <!-- </pre> -->
+    <hr>
+    <div class="pagination btn-group">
+      
+        <a class="btn prev" href="/2014/02/12/hello-world" title="复习JavaScript 4">&larr; Previous</a>
+      
+        <a class="btn" href="/archive.html">Archive</a>
+      
+        <a class="btn next disabled">Next &rarr;</a>
+      
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+  
+  <div class="col-md-2">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>18 February 2014</span></div>
+    </section>
+    
+      <section>
+        <h4>Category</h4>
+        <span class="category">
+          JavaScript
+        </span>
+      </section>
+         
+    
+      <section>
+        <h4>Tags</h4>
+        <ul class="tag_box">
+          
+          
+
+
+  
+     
+    	<li><a href="/tags.html#JavaScript-ref">JavaScript <span>2</span></a></li>
+    
+  
+
+
+
+        </ul>
+      </section>
+             
+  </div>
+</div>
+
+
+        </div>
+
+        <footer>
+            <p>&copy; 2014 ltchronus with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+                and <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>
+            </p>
+        </footer>
+    </div>
+    <!-- /container -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>
+    window.jQuery || document.write('<script src="/assets/themes/hooligan/js/jquery.min.js"><\/script>')
+    </script>
+    <!-- // <script src="/assets/themes/hooligan/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="/assets/themes/hooligan/bootstrap3/js/bootstrap.min.js"></script>
+    <!-- <link href="/assets/themes/hooligan/css/prettify.css" rel="stylesheet" type="text/css" media="all"> -->
+    <!-- // <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+    <!-- // <script type="text/javascript" src="/assets/themes/hooligan/js/prettify.js"></script> -->
+
+
+
+ <script src="/assets/themes/hooligan/js/rawinflate.js"></script>
+<script src="/assets/themes/hooligan/js/rawdeflate.js"></script>
+  <script src="/assets/themes/hooligan/js/jquery_plantuml.js"></script>
+
+
+
+
+
+
+    
+</body>
+
+</html>
+
