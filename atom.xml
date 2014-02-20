@@ -4,13 +4,28 @@
  <title>Code Monkey‘s Blog</title>
  <link href="http://username.github.io/" rel="self"/>
  <link href="http://username.github.io"/>
- <updated>2014-02-19T20:10:30+08:00</updated>
+ <updated>2014-02-20T16:50:13+08:00</updated>
  <id>http://username.github.io</id>
  <author>
    <name>ltchronus</name>
    <email>ltchronus@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>为jekyll添加plantUML</title>
+   <link href="http://username.github.io/plantuml/2014/02/20/jekyllplantuml"/>
+   <updated>2014-02-20T00:00:00+08:00</updated>
+   <id>http://username.github.io/plantuml/2014/02/20/jekyllplantuml</id>
+   <content type="html">&lt;h1&gt;jekyll on github Pages 添加plantuml&lt;/h1&gt;
+
+&lt;p&gt;经过昨天的努力终于把plantuml装好了，效果如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#39;/assets/img/plantuml/933c3d2d728e6732aab894893075822c.svg&#39;&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;h2&gt;具体过程稍后再补&lt;/h2&gt;
+</content>
+ </entry>
  
  <entry>
    <title>复习JavaScript5</title>

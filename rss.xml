@@ -5,10 +5,25 @@
         <description>Code Monkey‘s Blog - ltchronus</description>
         <link>http://username.github.io</link>
         <link>http://username.github.io</link>
-        <lastBuildDate>2014-02-19T20:10:30+08:00</lastBuildDate>
-        <pubDate>2014-02-19T20:10:30+08:00</pubDate>
+        <lastBuildDate>2014-02-20T16:50:13+08:00</lastBuildDate>
+        <pubDate>2014-02-20T16:50:13+08:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>为jekyll添加plantUML</title>
+                <description>&lt;h1&gt;jekyll on github Pages 添加plantuml&lt;/h1&gt;
+
+&lt;p&gt;经过昨天的努力终于把plantuml装好了，效果如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#39;/assets/img/plantuml/933c3d2d728e6732aab894893075822c.svg&#39;&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;h2&gt;具体过程稍后再补&lt;/h2&gt;
+</description>
+                <link>http://username.github.io/plantuml/2014/02/20/jekyllplantuml</link>
+                <guid>http://username.github.io/plantuml/2014/02/20/jekyllplantuml</guid>
+                <pubDate>2014-02-20T00:00:00+08:00</pubDate>
+        </item>
 
         <item>
                 <title>复习JavaScript5</title>
