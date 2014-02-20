@@ -5,8 +5,8 @@
         <description>Code Monkey‘s Blog - ltchronus</description>
         <link>http://username.github.io</link>
         <link>http://username.github.io</link>
-        <lastBuildDate>2014-02-20T16:50:13+08:00</lastBuildDate>
-        <pubDate>2014-02-20T16:50:13+08:00</pubDate>
+        <lastBuildDate>2014-02-20T16:54:53+08:00</lastBuildDate>
+        <pubDate>2014-02-20T16:54:53+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -267,8 +267,6 @@
 &lt;blockquote&gt;
 &lt;p&gt;任何文件都可以对他们的局部变量&lt;em&gt;private设属性，并且设置对其他的文件也立即生效。一旦这个模块加载结束，应用会调用 blogModule.&lt;/em&gt;seal()&amp;quot;上锁&amp;quot;，这会阻止外部接入内部的&lt;em&gt;private。如果这个模块需要再次增生 ，应用的生命周期内，任何文件都可以调用&lt;/em&gt;unseal() ”开锁”，然后再加载新文件。加载后再次调用_seal()”上锁”。&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;p&gt;&lt;center&gt;&lt;img src=&#39;/assets/img/plantuml/933c3d2d728e6732aab894893075822c.svg&#39;&gt;&lt;/center&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
