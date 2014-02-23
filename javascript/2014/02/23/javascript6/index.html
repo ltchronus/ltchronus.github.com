@@ -5,10 +5,10 @@
 <head>
     <meta charset="utf-8">
     <title>
-         为jekyll添加plantUML -  Code Monkey‘s Blog
+         复习JavaScript6 -  Code Monkey‘s Blog
     </title>
     
-    <meta name="description" content="">
+    <meta name="description" content="复习JavaScript6">
     <meta name="author" content="ltchronus">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
@@ -132,7 +132,7 @@
 
 <div class="page-header">
   <h1>
-    为jekyll添加plantUML 
+    复习JavaScript6 
     
   </h1>
 </div>
@@ -140,23 +140,68 @@
 <div class="row">
   <div class="col-md-10 day content">
     <!-- <pre class="prettyprint linenums"> -->
-    <h1>jekyll on github Pages 添加plantuml</h1>
+    <h1>原型和原型链 复习</h1>
 
-<p>经过昨天的努力终于把plantuml装好了，效果如下：</p>
+<h2>原型</h2>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(){</span>
+    <span class="p">}</span>
 
-<p><center><img src='/assets/img/plantuml/933c3d2d728e6732aab894893075822c.svg'></center></p>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Jim&#39;</span><span class="p">;</span>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">comsole</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
 
-<h2>具体过程稍后再补</h2>
+<span class="kd">var</span> <span class="nx">person1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>        
+<span class="kd">var</span> <span class="nx">person2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>          
+</code></pre></div>
+<p>下图说明了Person构造函数、Person原型以及person两个实例的关系。<br>
+<strong>要说明的是当构造函数创建一个新实例后，生成的实例会包含一个[[prototype]]指针，指向构造函数的原型对象。在chrome、Safari、Firefox中以<strong>proto</strong>形式存在；在其他实现中脚本是不可见的。</strong></p>
+
+<!-- more -->
+
+<p><img src="http://ww3.sinaimg.cn/large/887b2965tw1edtbsbtq0cj20dk07fjs3.jpg" alt="图片"></p>
+
+<h3>原型使用方式扩展1</h3>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(){</span>
+    <span class="p">}</span>
+
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span> <span class="err">：</span><span class="s1">&#39;Jim&#39;</span><span class="err">，</span>
+    <span class="nx">sayName</span><span class="err">：</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">comsole</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="p">;</span>
+</code></pre></div>
+<h3>原型使用方式扩展2</h3>
+
+<p>封装私有的function，通过return的形式暴露出简单的使用名称，以达到public/private的效果。</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(){</span>
+    <span class="p">}</span>
+
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Jim&#39;</span><span class="p">;</span>
+
+    <span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">comsole</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span> <span class="nx">name</span><span class="p">,</span>
+                <span class="nx">sayName</span><span class="o">:</span> <span class="nx">sayName</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="p">();</span>
+</code></pre></div>
+<h2>原型链</h2>
 
     <!-- </pre> -->
     <hr>
     <div class="pagination btn-group">
       
-        <a class="btn prev" href="/javascript/2014/02/18/javascript5" title="复习JavaScript5">&larr; Previous</a>
+        <a class="btn prev" href="/plantuml/2014/02/20/jekyllplantuml" title="为jekyll添加plantUML">&larr; Previous</a>
       
         <a class="btn" href="/archive.html">Archive</a>
       
-        <a class="btn next" href="/javascript/2014/02/23/javascript6" title="复习JavaScript6">Next &rarr;</a>
+        <a class="btn next disabled">Next &rarr;</a>
       
     </div>
     <hr>
@@ -186,13 +231,13 @@
   <div class="col-md-2">
     <section>
       <h4>Published</h4>
-      <div class="date"><span>20 February 2014</span></div>
+      <div class="date"><span>23 February 2014</span></div>
     </section>
     
       <section>
         <h4>Category</h4>
         <span class="category">
-          plantuml
+          JavaScript
         </span>
       </section>
          
@@ -206,7 +251,7 @@
 
   
      
-    	<li><a href="/tags.html#jekyll plantuml-ref">jekyll plantuml <span>1</span></a></li>
+    	<li><a href="/tags.html#JavaScript-ref">JavaScript <span>3</span></a></li>
     
   
 
