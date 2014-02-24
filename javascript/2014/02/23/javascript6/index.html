@@ -192,6 +192,79 @@
 <span class="p">}</span> <span class="p">();</span>
 </code></pre></div>
 <h2>原型链</h2>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript">        <span class="kd">function</span> <span class="nx">SuperType</span><span class="p">(){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">property</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nx">SuperType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getSuperValue</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">property</span><span class="p">;</span>
+        <span class="p">};</span>
+
+        <span class="kd">function</span> <span class="nx">SubType</span><span class="p">(){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">subproperty</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">//inherit from SuperType</span>
+        <span class="nx">SubType</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SuperType</span><span class="p">();</span>
+
+        <span class="nx">SubType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getSubValue</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(){</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">subproperty</span><span class="p">;</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SubType</span><span class="p">();</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">getSuperValue</span><span class="p">());</span>   <span class="c1">//true</span>
+
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">instance</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">);</span>      <span class="c1">//true</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">instance</span> <span class="k">instanceof</span> <span class="nx">SuperType</span><span class="p">);</span>   <span class="c1">//true</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">instance</span> <span class="k">instanceof</span> <span class="nx">SubType</span><span class="p">);</span>     <span class="c1">//true</span>
+
+        <span class="nx">alert</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">isPrototypeOf</span><span class="p">(</span><span class="nx">instance</span><span class="p">));</span>    <span class="c1">//true</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">SuperType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">isPrototypeOf</span><span class="p">(</span><span class="nx">instance</span><span class="p">));</span> <span class="c1">//true</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">SubType</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">isPrototypeOf</span><span class="p">(</span><span class="nx">instance</span><span class="p">));</span>   <span class="c1">//true</span>
+</code></pre></div>
+<p>关系图如下：  </p>
+
+<p><img src="http://ww2.sinaimg.cn/large/887b2965tw1edurjnlqh0j20ee0bf75m.jpg" alt="关系图"></p>
+
+<h3>属性查找</h3>
+
+<p>当查找一个对象的属性时，JavaScript 会向上遍历原型链，直到找到给定名称的属性为止，到查找到达原型链的顶部 - 也就是 Object.prototype - 但是仍然没有找到指定的属性，就会返回 undefined。</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">subtract</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">-</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">foo</span><span class="p">();</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">//结果是3，而不是13</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">subtract</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">//结果是-1</span>
+</code></pre></div>
+<h3>hasOwnProperty函数</h3>
+
+<p>hasOwnProperty是Object.prototype的一个方法，它可是个好东西，他能判断一个对象是否包含自定义属性而不是原型链上的属性，因为hasOwnProperty 是 JavaScript 中唯一一个处理属性但是不查找原型链的函数。</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 修改Object.prototype</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> 
+<span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span><span class="nx">goo</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">};</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">;</span> <span class="c1">// 1</span>
+<span class="s1">&#39;bar&#39;</span> <span class="k">in</span> <span class="nx">foo</span><span class="p">;</span> <span class="c1">// true</span>
+
+<span class="nx">foo</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">);</span> <span class="c1">// false</span>
+<span class="nx">foo</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;goo&#39;</span><span class="p">);</span> <span class="c1">// true</span>
+</code></pre></div>
+<p>只有 hasOwnProperty 可以给出正确和期望的结果，这在遍历对象的属性时会很有用。 没有其它方法可以用来排除原型链上的属性，而不是定义在对象自身上的属性。</p>
+
+<hr>
+
+<p>感谢@汤姆大叔 的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript系列》</a>指导我学习！</p>
 
     <!-- </pre> -->
     <hr>
