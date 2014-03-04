@@ -5,13 +5,13 @@
         <description>Code Monkey‘s Blog - ltchronus</description>
         <link>http://username.github.io</link>
         <link>http://username.github.io</link>
-        <lastBuildDate>2014-03-04T20:00:57+08:00</lastBuildDate>
-        <pubDate>2014-03-04T20:00:57+08:00</pubDate>
+        <lastBuildDate>2014-03-04T20:06:36+08:00</lastBuildDate>
+        <pubDate>2014-03-04T20:06:36+08:00</pubDate>
         <ttl>1800</ttl>
 
 
         <item>
-                <title>Tree</title>
+                <title>多叉树的复习</title>
                 <description>&lt;h1&gt;多叉树复习&lt;/h1&gt;
 
 &lt;p&gt;「多叉树」就是分 N 岔的树，每個节点可以有零个、一个、两个、……、 N 个小孩。
@@ -266,8 +266,8 @@
 &lt;span class=&quot;c1&quot;&gt;//analytics :1&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;//flare :0&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-                <link>http://username.github.io/2014/03/03/tree</link>
-                <guid>http://username.github.io/2014/03/03/tree</guid>
+                <link>http://username.github.io/algorithm/2014/03/03/tree</link>
+                <guid>http://username.github.io/algorithm/2014/03/03/tree</guid>
                 <pubDate>2014-03-03T00:00:00+08:00</pubDate>
         </item>
 
