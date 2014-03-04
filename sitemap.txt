@@ -8,8 +8,8 @@ http://username.github.io/rss.xml
 http://username.github.io/sitemap.txt
 http://username.github.io/tags.html
 
-http://username.github.io/2014/03/03/
+http://username.github.io/2014/03/03/tree
 http://username.github.io/javascript/2014/02/23/javascript6
 http://username.github.io/plantuml/2014/02/20/jekyllplantuml
 http://username.github.io/javascript/2014/02/18/javascript5
-http://username.github.io/2014/02/12/hello-world
+http://username.github.io/2014/02/12/javascript4
