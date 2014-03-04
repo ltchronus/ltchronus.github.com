@@ -4,7 +4,7 @@
  <title>Code Monkey‘s Blog</title>
  <link href="http://username.github.io/" rel="self"/>
  <link href="http://username.github.io"/>
- <updated>2014-03-04T19:56:36+08:00</updated>
+ <updated>2014-03-04T20:00:57+08:00</updated>
  <id>http://username.github.io</id>
  <author>
    <name>ltchronus</name>
@@ -13,7 +13,7 @@
 
  
  <entry>
-   <title>多叉树的复习</title>
+   <title>Tree</title>
    <link href="http://username.github.io/2014/03/03/tree"/>
    <updated>2014-03-03T00:00:00+08:00</updated>
    <id>http://username.github.io/2014/03/03/tree</id>
