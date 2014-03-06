@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+         ltchronus -  Code Monkey‘s Blog
+    </title>
+    
+    <meta name="author" content="ltchronus">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- bootstrap2 -->
+    <!--   <link href="/assets/themes/hooligan/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/hooligan/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"> -->
+    <!-- bootstrap3 -->
+    <link href="/assets/themes/hooligan/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/hooligan/bootstrap3/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/themes/hooligan/css-social-buttons/css/zocial.stripped.css">
+    <link href="/assets/themes/hooligan/css/pygments.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/hooligan/css/darkstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/hooligan/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+
+    <!-- fav and touch icons -->
+    <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+ 
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand brand" href="/">Code Monkey‘s Blog</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">         
+                <ul class="nav navbar-nav">
+                      
+
+
+  
+    
+      
+      	
+      	<li><a href="/about.html">About Me</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+
+
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="divider-vertical"></li>
+                    
+                    <li>
+                        <a href="https://github.com/ltchronus" class="zocial github icon" target="_blank">
+                            <span class="hidden-desktop">Github</span>
+                        </a>
+                    </li>
+                         
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        <div >
+            
+
+	<div class="page-header">
+  		<h1>ltchronus  <small>记录我的点点滴滴</small></h1>
+  	</div>
+
+
+<div class="row">
+  <div class="content">
+    
+
+
+
+
+
+    
+    <div class="pagecontent">
+    <h1><a href="/2014/02/12/javascript4">复习JavaScript 4</a></h1>
+    <p class="author">
+        <span class="date">February 12, 2014</span>
+    </p>
+    
+        
+            <h1>全面解析Module模式 复习</h1>
+
+<hr>
+
+<h2>基本用法</h2>
+
+<!-- &lt; pre  &gt; -->
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Calculator</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">eq</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//这里可以声明私有成员</span>
+
+    <span class="kd">var</span> <span class="nx">eqCtl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">eq</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1">// 暴露公开的成员</span>
+        <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+            <span class="nx">eqCtl</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+<!-- &lt; /pre &gt; -->
+
+<p>每次调用的时候new一下，<strong>不过这样每个实例都独立存在于内存中</strong>。  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">calculator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Calculator</span><span class="p">(</span><span class="s1">&#39;eq&#39;</span><span class="p">);</span>
+<span class="nx">calculator</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+
+        
+        <a href="/2014/02/12/javascript4" type="button" class="btn btn-default">read more</a>
+    </div>
+    
+    
+    <div class="pagecontent">
+    <h1><a href="/2014/01/25/javascript3">JavaScript复习3</a></h1>
+    <p class="author">
+        <span class="date">January 25, 2014</span>
+    </p>
+    
+        
+            
+        
+        <a href="/2014/01/25/javascript3" type="button" class="btn btn-default">read more</a>
+    </div>
+    
+    
+    <div class="pagecontent">
+    <h1><a href="/2014/01/22/javascript2">JavaScript复习2</a></h1>
+    <p class="author">
+        <span class="date">January 22, 2014</span>
+    </p>
+    
+        
+            
+        
+        <a href="/2014/01/22/javascript2" type="button" class="btn btn-default">read more</a>
+    </div>
+    
+    
+    <div class="pagecontent">
+    <h1><a href="/2014/01/10/javascript1">JavaScript复习1</a></h1>
+    <p class="author">
+        <span class="date">January 10, 2014</span>
+    </p>
+    
+        
+            编写高质量JavaScript代码 最近发现JavaScript有些基本概念模糊，趁这个机会学习下 @汤姆大叔 的《深入理解JavaScript》系列，复习记录下遗忘的基础知识。在此感谢汤姆大叔！ 1、全局变量 隐式全局变量和明确定义的全局变量间的不同： 　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。 ```javascript // 定义三个全局变量 var globalvar = 1; globalnovar = 2; // 反面教材 (function () { global_fromfunc = 3; // 反面教材 }()); // 试图删除 delete globalvar; // false delete globalnovar; // true delete global_fromfunc; // true // 测试该删除 typeof globalvar; // &quot;number&quot; typeof globalnovar; // &quot;undefined&quot; typeof global_fromfunc; // &quot;undefined&quot; ``` 2、访问全局变量的方法 确保自己在任何情况访问的都是全局变量： javascript var global = (function () { return this; }()); 在strict模式下以上代码不行。 3、函数中变量的预解析 // 反例 myname = &quot;global&quot;; // 全局变量 function func() { alert(myname); // &quot;undefined&quot; var myname = &quot;local&quot;; alert(myname); // &quot;local&quot; } func(); 在函数中任意位置的var语句都会在函数顶部预先声明。于是上面代码等同于 ```javascript myname = &quot;global&quot;; //...
+        
+        <a href="/2014/01/10/javascript1" type="button" class="btn btn-default">read more</a>
+    </div>
+    
+    
+
+<!-- </ul>
+<ul class="pager">
+     
+     
+     
+     
+         
+     
+     
+     
+        
+     
+     
+    
+    <li><a href="/page2/">末页</a>
+    </li>
+    <li><a href="#">第2页 / 共2页</a>
+    </li>
+</ul> -->
+
+
+<div class="pagination">
+  
+    <a href="/index.html">&laquo; Prev</a>
+  
+
+  
+    
+      <a href="/index.html">1</a>
+    
+  
+    
+      <em>2</em>
+    
+  
+
+  
+    <span>Next &raquo;</span>
+  
+</div>
+
+
+
+
+
+
+  </div>
+</div>
+
+
+        </div>
+
+        <footer>
+            <p>&copy; 2014 ltchronus with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+                and <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>
+            </p>
+        </footer>
+    </div>
+    <!-- /container -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>
+    window.jQuery || document.write('<script src="/assets/themes/hooligan/js/jquery.min.js"><\/script>')
+    </script>
+    <!-- // <script src="/assets/themes/hooligan/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="/assets/themes/hooligan/bootstrap3/js/bootstrap.min.js"></script>
+    <!-- <link href="/assets/themes/hooligan/css/prettify.css" rel="stylesheet" type="text/css" media="all"> -->
+    <!-- // <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+    <!-- // <script type="text/javascript" src="/assets/themes/hooligan/js/prettify.js"></script> -->
+
+
+
+ <script src="/assets/themes/hooligan/js/rawinflate.js"></script>
+<script src="/assets/themes/hooligan/js/rawdeflate.js"></script>
+  <script src="/assets/themes/hooligan/js/jquery_plantuml.js"></script>
+
+
+
+
+
+
+    
+</body>
+
+</html>
+

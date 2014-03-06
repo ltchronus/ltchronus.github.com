@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-         为jekyll添加plantUML -  Code Monkey‘s Blog
+         JavaScript复习1 -  Code Monkey‘s Blog
     </title>
     
     <meta name="description" content="">
@@ -136,7 +136,7 @@
 
 <div class="page-header">
   <h1>
-    为jekyll添加plantUML 
+    JavaScript复习1 
     
   </h1>
 </div>
@@ -144,23 +144,117 @@
 <div class="row">
   <div class="col-md-10 day content">
     <!-- <pre class="prettyprint linenums"> -->
-    <h1>jekyll on github Pages 添加plantuml</h1>
+    <h1>编写高质量JavaScript代码</h1>
 
-<p>经过昨天的努力终于把plantuml装好了，效果如下：</p>
+<p>最近发现JavaScript有些基本概念模糊，趁这个机会学习下 @汤姆大叔 的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript》</a>系列，复习记录下遗忘的基础知识。在此感谢汤姆大叔！</p>
 
-<p><center><img src='/assets/img/plantuml/933c3d2d728e6732aab894893075822c.svg'></center></p>
+<h2>1、全局变量</h2>
 
-<h2>具体过程稍后再补</h2>
+<p><strong>隐式全局变量和明确定义的全局变量间的不同：</strong></p>
+
+<blockquote>
+<p>　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。
+```javascript
+// 定义三个全局变量
+var global<em>var = 1;
+global</em>novar = 2; // 反面教材
+(function () {
+   global_fromfunc = 3; // 反面教材
+}());</p>
+</blockquote>
+
+<p>// 试图删除
+delete global<em>var; // false
+delete global</em>novar; // true
+delete global_fromfunc; // true</p>
+
+<p>// 测试该删除
+typeof global<em>var; // &quot;number&quot;
+typeof global</em>novar; // &quot;undefined&quot;
+typeof global_fromfunc; // &quot;undefined&quot;
+```</p>
+
+<h2>2、访问全局变量的方法</h2>
+
+<p><strong>确保自己在任何情况访问的都是全局变量：</strong>
+<code>javascript
+var global = (function () {
+   return this;
+}());
+</code>
+在strict模式下以上代码不行。</p>
+
+<h2>3、函数中变量的预解析</h2>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 反例</span>
+<span class="nx">myname</span> <span class="o">=</span> <span class="s2">&quot;global&quot;</span><span class="p">;</span> <span class="c1">// 全局变量</span>
+<span class="kd">function</span> <span class="nx">func</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">myname</span><span class="p">);</span> <span class="c1">// &quot;undefined&quot;</span>
+    <span class="kd">var</span> <span class="nx">myname</span> <span class="o">=</span> <span class="s2">&quot;local&quot;</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">myname</span><span class="p">);</span> <span class="c1">// &quot;local&quot;</span>
+<span class="p">}</span>
+<span class="nx">func</span><span class="p">();</span>
+</code></pre></div>
+<p>在函数中任意位置的var语句都会在函数顶部预先声明。于是上面代码等同于
+```javascript
+myname = &quot;global&quot;; // global variable
+function func() {
+   var myname; // 等同于 -&gt; var myname = undefined;
+   alert(myname); // &quot;undefined&quot;
+   myname = &quot;local&quot;;
+   alert(myname); // &quot;local&quot;}
+func();
+//所以应该弹出的是</p>
+
+<p>//　　undefined
+//　　local
+```</p>
+
+<blockquote>
+<p>　　代码处理分两个阶段，第一阶段是变量，函数声明，以及正常格式的参数创建，这是一个解析和进入上下文 的阶段。第二个阶段是代码执行，函数表达式和不合格的标识符（为声明的变量）被创建。但是，出于实用的目的，我们就采用了”hoisting”这个概念， 这种ECMAScript标准中并未定义，通常用来描述行为。</p>
+</blockquote>
+
+<p>　　</p>
+
+<h2>4、eval()和new Function()</h2>
+
+<p>尽量不要使用eval()，它会干扰作用域链。必须使用时可以考虑用Function()代替。</p>
+
+<p>如下eval()可以访问和修改外部作用域：　
+```javascript
+(function () {
+   var local = 1;
+   eval(&quot;local = 3; console.log(local)&quot;); // logs &quot;3&quot;
+   console.log(local); // logs &quot;3&quot;
+}());</p>
+
+<p>(function () {
+   var local = 1;
+   Function(&quot;console.log(typeof local);&quot;)(); // logs undefined
+}());
+```</p>
+
+<h2>5、parseInt()和数值转换</h2>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">month</span> <span class="o">=</span> <span class="s2">&quot;06&quot;</span><span class="p">,</span>
+    <span class="nx">year</span> <span class="o">=</span> <span class="s2">&quot;09&quot;</span><span class="p">;</span>
+<span class="nx">month</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">month</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="nx">year</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">year</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+<p>　　parseInt(year)最好指定技术参数，否则&#39;09&#39;会被当做8进制的数。（ECMAScript 5中不会，已经在最新chrome和Safari中尝试parseInt(year)默认是10进制的）。</p>
+
+<p>　　其他字符串转换成数字方法：
+```
++&quot;08&quot; // 结果是 8
+Number(&quot;08&quot;) // 8</p>
 
     <!-- </pre> -->
     <hr>
     <div class="pagination btn-group">
       
-        <a class="btn prev" href="/javascript/2014/02/18/javascript5" title="复习JavaScript5">&larr; Previous</a>
+        <a class="btn disabled prev">&larr; Previous</a>
       
         <a class="btn" href="/archive.html">Archive</a>
       
-        <a class="btn next" href="/javascript/2014/02/23/javascript6" title="复习JavaScript6">Next &rarr;</a>
+        <a class="btn next" href="/2014/01/22/javascript2" title="JavaScript复习2">Next &rarr;</a>
       
     </div>
     <hr>
@@ -190,34 +284,9 @@
   <div class="col-md-2">
     <section>
       <h4>Published</h4>
-      <div class="date"><span>20 February 2014</span></div>
+      <div class="date"><span>10 January 2014</span></div>
     </section>
-    
-      <section>
-        <h4>Category</h4>
-        <span class="category">
-          plantuml
-        </span>
-      </section>
          
-    
-      <section>
-        <h4>Tags</h4>
-        <ul class="tag_box">
-          
-          
-
-
-  
-     
-    	<li><a href="/tags.html#jekyll plantuml-ref">jekyll plantuml <span>1</span></a></li>
-    
-  
-
-
-
-        </ul>
-      </section>
              
   </div>
 </div>

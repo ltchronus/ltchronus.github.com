@@ -4,13 +4,21 @@
  <title>Code Monkey‘s Blog</title>
  <link href="http://username.github.io/" rel="self"/>
  <link href="http://username.github.io"/>
- <updated>2014-03-04T20:06:36+08:00</updated>
+ <updated>2014-03-06T20:46:49+08:00</updated>
  <id>http://username.github.io</id>
  <author>
    <name>ltchronus</name>
    <email>ltchronus@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>JavaScript复习7</title>
+   <link href="http://username.github.io/2014/03/06/javascript7"/>
+   <updated>2014-03-06T00:00:00+08:00</updated>
+   <id>http://username.github.io/2014/03/06/javascript7</id>
+   <content type="html"></content>
+ </entry>
  
  <entry>
    <title>多叉树的复习</title>
@@ -670,6 +678,131 @@
 &lt;hr&gt;
 
 &lt;p&gt;感谢@汤姆大叔 的&lt;a href=&quot;http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html&quot;&gt;《深入理解JavaScript系列》&lt;/a&gt;指导我学习！&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>JavaScript复习3</title>
+   <link href="http://username.github.io/2014/01/25/javascript3"/>
+   <updated>2014-01-25T00:00:00+08:00</updated>
+   <id>http://username.github.io/2014/01/25/javascript3</id>
+   <content type="html"></content>
+ </entry>
+ 
+ <entry>
+   <title>JavaScript复习2</title>
+   <link href="http://username.github.io/2014/01/22/javascript2"/>
+   <updated>2014-01-22T00:00:00+08:00</updated>
+   <id>http://username.github.io/2014/01/22/javascript2</id>
+   <content type="html"></content>
+ </entry>
+ 
+ <entry>
+   <title>JavaScript复习1</title>
+   <link href="http://username.github.io/2014/01/10/javascript1"/>
+   <updated>2014-01-10T00:00:00+08:00</updated>
+   <id>http://username.github.io/2014/01/10/javascript1</id>
+   <content type="html">&lt;h1&gt;编写高质量JavaScript代码&lt;/h1&gt;
+
+&lt;p&gt;最近发现JavaScript有些基本概念模糊，趁这个机会学习下 @汤姆大叔 的&lt;a href=&quot;http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html&quot;&gt;《深入理解JavaScript》&lt;/a&gt;系列，复习记录下遗忘的基础知识。在此感谢汤姆大叔！&lt;/p&gt;
+
+&lt;h2&gt;1、全局变量&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;隐式全局变量和明确定义的全局变量间的不同：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。
+```javascript
+// 定义三个全局变量
+var global&lt;em&gt;var = 1;
+global&lt;/em&gt;novar = 2; // 反面教材
+(function () {
+   global_fromfunc = 3; // 反面教材
+}());&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;// 试图删除
+delete global&lt;em&gt;var; // false
+delete global&lt;/em&gt;novar; // true
+delete global_fromfunc; // true&lt;/p&gt;
+
+&lt;p&gt;// 测试该删除
+typeof global&lt;em&gt;var; // &amp;quot;number&amp;quot;
+typeof global&lt;/em&gt;novar; // &amp;quot;undefined&amp;quot;
+typeof global_fromfunc; // &amp;quot;undefined&amp;quot;
+```&lt;/p&gt;
+
+&lt;h2&gt;2、访问全局变量的方法&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;确保自己在任何情况访问的都是全局变量：&lt;/strong&gt;
+&lt;code&gt;javascript
+var global = (function () {
+   return this;
+}());
+&lt;/code&gt;
+在strict模式下以上代码不行。&lt;/p&gt;
+
+&lt;h2&gt;3、函数中变量的预解析&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// 反例&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;myname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;global&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 全局变量&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;myname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;undefined&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;local&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;myname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;local&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在函数中任意位置的var语句都会在函数顶部预先声明。于是上面代码等同于
+```javascript
+myname = &amp;quot;global&amp;quot;; // global variable
+function func() {
+   var myname; // 等同于 -&amp;gt; var myname = undefined;
+   alert(myname); // &amp;quot;undefined&amp;quot;
+   myname = &amp;quot;local&amp;quot;;
+   alert(myname); // &amp;quot;local&amp;quot;}
+func();
+//所以应该弹出的是&lt;/p&gt;
+
+&lt;p&gt;//　　undefined
+//　　local
+```&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;　　代码处理分两个阶段，第一阶段是变量，函数声明，以及正常格式的参数创建，这是一个解析和进入上下文 的阶段。第二个阶段是代码执行，函数表达式和不合格的标识符（为声明的变量）被创建。但是，出于实用的目的，我们就采用了”hoisting”这个概念， 这种ECMAScript标准中并未定义，通常用来描述行为。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;　　&lt;/p&gt;
+
+&lt;h2&gt;4、eval()和new Function()&lt;/h2&gt;
+
+&lt;p&gt;尽量不要使用eval()，它会干扰作用域链。必须使用时可以考虑用Function()代替。&lt;/p&gt;
+
+&lt;p&gt;如下eval()可以访问和修改外部作用域：　
+```javascript
+(function () {
+   var local = 1;
+   eval(&amp;quot;local = 3; console.log(local)&amp;quot;); // logs &amp;quot;3&amp;quot;
+   console.log(local); // logs &amp;quot;3&amp;quot;
+}());&lt;/p&gt;
+
+&lt;p&gt;(function () {
+   var local = 1;
+   Function(&amp;quot;console.log(typeof local);&amp;quot;)(); // logs undefined
+}());
+```&lt;/p&gt;
+
+&lt;h2&gt;5、parseInt()和数值转换&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;06&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;09&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;parseInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;　　parseInt(year)最好指定技术参数，否则&amp;#39;09&amp;#39;会被当做8进制的数。（ECMAScript 5中不会，已经在最新chrome和Safari中尝试parseInt(year)默认是10进制的）。&lt;/p&gt;
+
+&lt;p&gt;　　其他字符串转换成数字方法：
+```
++&amp;quot;08&amp;quot; // 结果是 8
+Number(&amp;quot;08&amp;quot;) // 8&lt;/p&gt;
 </content>
  </entry>
  

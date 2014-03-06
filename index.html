@@ -106,6 +106,10 @@
       
     
   
+    
+      
+    
+  
 
 
 
@@ -142,6 +146,19 @@
 
 
 
+    
+    <div class="pagecontent">
+    <h1><a href="/2014/03/06/javascript7">JavaScript复习7</a></h1>
+    <p class="author">
+        <span class="date">March 06, 2014</span>
+    </p>
+    
+        
+            
+        
+        <a href="/2014/03/06/javascript7" type="button" class="btn btn-default">read more</a>
+    </div>
+    
     
     <div class="pagecontent">
     <h1><a href="/algorithm/2014/03/03/tree">多叉树的复习</a></h1>
@@ -262,46 +279,6 @@
     </div>
     
     
-    <div class="pagecontent">
-    <h1><a href="/2014/02/12/javascript4">复习JavaScript 4</a></h1>
-    <p class="author">
-        <span class="date">February 12, 2014</span>
-    </p>
-    
-        
-            <h1>全面解析Module模式 复习</h1>
-
-<hr>
-
-<h2>基本用法</h2>
-
-<!-- &lt; pre  &gt; -->
-<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Calculator</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">eq</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//这里可以声明私有成员</span>
-
-    <span class="kd">var</span> <span class="nx">eqCtl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">eq</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="c1">// 暴露公开的成员</span>
-        <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
-            <span class="nx">eqCtl</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
-<span class="p">};</span>
-</code></pre></div>
-<!-- &lt; /pre &gt; -->
-
-<p>每次调用的时候new一下，<strong>不过这样每个实例都独立存在于内存中</strong>。  </p>
-<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">calculator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Calculator</span><span class="p">(</span><span class="s1">&#39;eq&#39;</span><span class="p">);</span>
-<span class="nx">calculator</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-
-        
-        <a href="/2014/02/12/javascript4" type="button" class="btn btn-default">read more</a>
-    </div>
-    
-    
 
 <!-- </ul>
 <ul class="pager">
@@ -317,12 +294,35 @@
      
      
     
-    <li><a href="/page1/">末页</a>
+    <li><a href="/page2/">下一页</a>
     </li>
-    <li><a href="#">第1页 / 共1页</a>
+    
+    <li><a href="/page2/">末页</a>
+    </li>
+    <li><a href="#">第1页 / 共2页</a>
     </li>
 </ul> -->
 
+
+<div class="pagination">
+  
+    <span>&laquo; Prev</span>
+  
+
+  
+    
+      <em>1</em>
+    
+  
+    
+      <a href="/page2">2</a>
+    
+  
+
+  
+    <a href="/page2">Next &raquo;</a>
+  
+</div>
 
 
 
