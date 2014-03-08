@@ -144,7 +144,41 @@
 <div class="row">
   <div class="col-md-10 day content">
     <!-- <pre class="prettyprint linenums"> -->
-    
+    <h1>揭秘命名函数表达式  复习（2）</h1>
+
+<h2>JScript的BUG</h2>
+
+<p>在IE8-（IE6-IE8）中JScript有很多错误<br>
+这些会导致：  </p>
+
+<ul>
+<li><p>函数表达式的标示符泄露到外部作用域  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">g</span><span class="p">(){};</span>
+<span class="k">typeof</span> <span class="nx">g</span><span class="p">;</span> <span class="c1">// &quot;function&quot;</span>
+</code></pre></div></li>
+<li><p>把函数表达式同时当作函数声明和函数表达式</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="k">typeof</span> <span class="nx">g</span><span class="p">;</span> <span class="c1">// &quot;function&quot;</span>
+   <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">g</span><span class="p">(){};</span>
+</code></pre></div></li>
+</ul>
+
+<!-- more -->
+
+<p>以上两个我觉得问题都在JScript把函数表达式当做函数声明。
+   因为function g(){}被当做函数声明，在顶部已被解析了，自然而然会被泄露，自然无所谓声明的地方。</p>
+
+<ul>
+<li><p><strong>命名函数表达式会创建两个截然不同的函数对象</strong></p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">g</span><span class="p">(){};</span>
+<span class="nx">f</span> <span class="o">===</span> <span class="nx">g</span><span class="p">;</span> <span class="c1">// false</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">expando</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span><span class="p">;</span>
+<span class="nx">g</span><span class="p">.</span><span class="nx">expando</span><span class="p">;</span> <span class="c1">// undefined</span>
+</code></pre></div>
+<hr>
+
+<p>感谢@汤姆大叔 的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript系列》</a>指导我学习！</p></li>
+</ul>
+
     <!-- </pre> -->
     <hr>
     <div class="pagination btn-group">

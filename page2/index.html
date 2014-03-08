@@ -194,7 +194,25 @@
     </p>
     
         
-            
+            <h1>揭秘命名函数表达式  复习（2）</h1>
+
+<h2>JScript的BUG</h2>
+
+<p>在IE8-（IE6-IE8）中JScript有很多错误<br>
+这些会导致：  </p>
+
+<ul>
+<li><p>函数表达式的标示符泄露到外部作用域  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">g</span><span class="p">(){};</span>
+<span class="k">typeof</span> <span class="nx">g</span><span class="p">;</span> <span class="c1">// &quot;function&quot;</span>
+</code></pre></div></li>
+<li><p>把函数表达式同时当作函数声明和函数表达式</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="k">typeof</span> <span class="nx">g</span><span class="p">;</span> <span class="c1">// &quot;function&quot;</span>
+   <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">g</span><span class="p">(){};</span>
+</code></pre></div></li>
+</ul>
+
+
         
         <a href="/2014/01/25/javascript3" type="button" class="btn btn-default">read more</a>
     </div>
