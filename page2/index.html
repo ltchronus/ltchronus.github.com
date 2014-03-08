@@ -207,7 +207,25 @@
     </p>
     
         
-            
+            <h1>揭秘命名函数表达式</h1>
+
+<h2>1、函数表达式和函数声明</h2>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="err">函数声明</span><span class="o">:</span>
+<span class="kd">function</span> <span class="err">函数名称</span> <span class="p">(</span><span class="err">参数：可选</span><span class="p">){</span> <span class="err">函数体</span> <span class="p">}</span>
+
+<span class="err">函数表达式：</span>
+<span class="kd">function</span> <span class="err">函数名称（可选）</span><span class="p">(</span><span class="err">参数：可选</span><span class="p">){</span> <span class="err">函数体</span> <span class="p">}</span> 
+<span class="c1">//////////////////////////////////////////////////////////</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){}</span> <span class="c1">// 声明，因为它是程序的一部分</span>
+  <span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(){};</span> <span class="c1">// 表达式，因为它是赋值表达式的一部分</span>
+
+  <span class="k">new</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){};</span> <span class="c1">// 表达式，因为它是new表达式</span>
+
+  <span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){}</span> <span class="c1">// 声明，因为它是函数体的一部分</span>
+  <span class="p">})();</span>
+</code></pre></div>
+
         
         <a href="/2014/01/22/javascript2" type="button" class="btn btn-default">read more</a>
     </div>
@@ -220,7 +238,34 @@
     </p>
     
         
-            编写高质量JavaScript代码 最近发现JavaScript有些基本概念模糊，趁这个机会学习下 @汤姆大叔 的《深入理解JavaScript》系列，复习记录下遗忘的基础知识。在此感谢汤姆大叔！ 1、全局变量 隐式全局变量和明确定义的全局变量间的不同： 　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。 ```javascript // 定义三个全局变量 var globalvar = 1; globalnovar = 2; // 反面教材 (function () { global_fromfunc = 3; // 反面教材 }()); // 试图删除 delete globalvar; // false delete globalnovar; // true delete global_fromfunc; // true // 测试该删除 typeof globalvar; // &quot;number&quot; typeof globalnovar; // &quot;undefined&quot; typeof global_fromfunc; // &quot;undefined&quot; ``` 2、访问全局变量的方法 确保自己在任何情况访问的都是全局变量： javascript var global = (function () { return this; }()); 在strict模式下以上代码不行。 3、函数中变量的预解析 // 反例 myname = &quot;global&quot;; // 全局变量 function func() { alert(myname); // &quot;undefined&quot; var myname = &quot;local&quot;; alert(myname); // &quot;local&quot; } func(); 在函数中任意位置的var语句都会在函数顶部预先声明。于是上面代码等同于 ```javascript myname = &quot;global&quot;; //...
+            <h1>编写高质量JavaScript代码</h1>
+
+<p>最近发现JavaScript有些基本概念模糊，趁这个机会学习下 @汤姆大叔 的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript》</a>系列，复习记录下遗忘的基础知识。在此感谢汤姆大叔！</p>
+
+<h2>1、全局变量</h2>
+
+<p><strong>隐式全局变量和明确定义的全局变量间的不同：</strong></p>
+
+<blockquote>
+<p>　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。</p>
+</blockquote>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 定义三个全局变量</span>
+<span class="kd">var</span> <span class="nx">global_var</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">global_novar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// 反面教材</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+   <span class="nx">global_fromfunc</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// 反面教材</span>
+<span class="p">}());</span>
+<span class="c1">// 试图删除</span>
+<span class="k">delete</span> <span class="nx">global_var</span><span class="p">;</span> <span class="c1">// false</span>
+<span class="k">delete</span> <span class="nx">global_novar</span><span class="p">;</span> <span class="c1">// true</span>
+<span class="k">delete</span> <span class="nx">global_fromfunc</span><span class="p">;</span> <span class="c1">// true</span>
+
+<span class="c1">// 测试该删除</span>
+<span class="k">typeof</span> <span class="nx">global_var</span><span class="p">;</span> <span class="c1">// &quot;number&quot;</span>
+<span class="k">typeof</span> <span class="nx">global_novar</span><span class="p">;</span> <span class="c1">// &quot;undefined&quot;</span>
+<span class="k">typeof</span> <span class="nx">global_fromfunc</span><span class="p">;</span> <span class="c1">// &quot;undefined&quot;</span>
+</code></pre></div>
+
         
         <a href="/2014/01/10/javascript1" type="button" class="btn btn-default">read more</a>
     </div>

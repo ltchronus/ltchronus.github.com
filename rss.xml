@@ -5,8 +5,8 @@
         <description>Code Monkey‘s Blog - ltchronus</description>
         <link>http://username.github.io</link>
         <link>http://username.github.io</link>
-        <lastBuildDate>2014-03-06T20:46:49+08:00</lastBuildDate>
-        <pubDate>2014-03-06T20:46:49+08:00</pubDate>
+        <lastBuildDate>2014-03-08T17:14:29+08:00</lastBuildDate>
+        <pubDate>2014-03-08T17:14:29+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -689,7 +689,80 @@
 
         <item>
                 <title>JavaScript复习2</title>
-                <description></description>
+                <description>&lt;h1&gt;揭秘命名函数表达式&lt;/h1&gt;
+
+&lt;h2&gt;1、函数表达式和函数声明&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;err&quot;&gt;函数声明&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;函数名称&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;参数：可选&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;函数体&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;函数表达式：&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;函数名称（可选）&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;参数：可选&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;函数体&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;c1&quot;&gt;//////////////////////////////////////////////////////////&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 声明，因为它是程序的一部分&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){};&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 表达式，因为它是赋值表达式的一部分&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){};&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 表达式，因为它是new表达式&lt;/span&gt;
+
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 声明，因为它是函数体的一部分&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;})();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;!-- more --&gt;
+
+&lt;p&gt;&lt;strong&gt;到底什么是表达式？&lt;/strong&gt;
+《JavaScript语言精粹》这样描述：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://images.cnitblog.com/blog/180279/201401/220008250549.png&quot; alt=&quot;此处输入图片的描述&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;所以如下是函数表达式。
+&lt;code&gt;javascript
+(function foo(){})
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;2、函数声明与函数表达式的区别&lt;/h2&gt;
+
+&lt;p&gt;首先，函数声明会在任何表达式被解析和求值之前先被解析和求值，即使你的声明在代码的最后一行，它也会在同作用域内第一个表达式之前被解析/求值，参考如下例子，函数fn是在alert之后声明的，但是在alert执行的时候，fn已经有定义了：　　
+```javascript
+alert(fn());&lt;/p&gt;
+
+&lt;p&gt;function fn() {
+    return &amp;#39;Hello world!&amp;#39;;
+}
+```&lt;/p&gt;
+
+&lt;p&gt;另外，还有一点需要提醒一下，函数声明在条件语句内虽然可以用，但是没有被标准化，也就是说不同的环境可能有不同的执行结果，所以这样情况下，最好使用函数表达式：
+```javascript
+// 千万别这样做！
+// 因为有的浏览器会返回first的这个function，而有的浏览器返回的却是第二个
+if (true) {
+    function foo() {
+        return &amp;#39;first&amp;#39;;
+    }
+}else {
+    function foo() {
+        return &amp;#39;second&amp;#39;;
+    }
+}
+foo();&lt;/p&gt;
+
+&lt;p&gt;// 相反，这样情况，我们要用函数表达式
+var foo;
+if (true) {
+    foo = function() {
+        return &amp;#39;first&amp;#39;;
+    };
+}else {
+    foo = function() {
+        return &amp;#39;second&amp;#39;;
+    };
+}
+foo();
+```&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;感谢@汤姆大叔 的&lt;a href=&quot;http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html&quot;&gt;《深入理解JavaScript系列》&lt;/a&gt;指导我学习！&lt;/p&gt;
+</description>
                 <link>http://username.github.io/2014/01/22/javascript2</link>
                 <guid>http://username.github.io/2014/01/22/javascript2</guid>
                 <pubDate>2014-01-22T00:00:00+08:00</pubDate>
@@ -706,26 +779,25 @@
 &lt;p&gt;&lt;strong&gt;隐式全局变量和明确定义的全局变量间的不同：&lt;/strong&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。
-```javascript
-// 定义三个全局变量
-var global&lt;em&gt;var = 1;
-global&lt;/em&gt;novar = 2; // 反面教材
-(function () {
-   global_fromfunc = 3; // 反面教材
-}());&lt;/p&gt;
+&lt;p&gt;　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// 定义三个全局变量&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;global_var&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;global_novar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 反面教材&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;global_fromfunc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 反面教材&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}());&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// 试图删除&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;global_var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;global_novar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;global_fromfunc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
 
-&lt;p&gt;// 试图删除
-delete global&lt;em&gt;var; // false
-delete global&lt;/em&gt;novar; // true
-delete global_fromfunc; // true&lt;/p&gt;
-
-&lt;p&gt;// 测试该删除
-typeof global&lt;em&gt;var; // &amp;quot;number&amp;quot;
-typeof global&lt;/em&gt;novar; // &amp;quot;undefined&amp;quot;
-typeof global_fromfunc; // &amp;quot;undefined&amp;quot;
-```&lt;/p&gt;
+&lt;span class=&quot;c1&quot;&gt;// 测试该删除&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;global_var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;number&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;global_novar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;undefined&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;global_fromfunc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;undefined&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;!-- more --&gt;
 
 &lt;h2&gt;2、访问全局变量的方法&lt;/h2&gt;
 

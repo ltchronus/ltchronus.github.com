@@ -153,26 +153,25 @@
 <p><strong>隐式全局变量和明确定义的全局变量间的不同：</strong></p>
 
 <blockquote>
-<p>　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。
-```javascript
-// 定义三个全局变量
-var global<em>var = 1;
-global</em>novar = 2; // 反面教材
-(function () {
-   global_fromfunc = 3; // 反面教材
-}());</p>
+<p>　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。</p>
 </blockquote>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 定义三个全局变量</span>
+<span class="kd">var</span> <span class="nx">global_var</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">global_novar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// 反面教材</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+   <span class="nx">global_fromfunc</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// 反面教材</span>
+<span class="p">}());</span>
+<span class="c1">// 试图删除</span>
+<span class="k">delete</span> <span class="nx">global_var</span><span class="p">;</span> <span class="c1">// false</span>
+<span class="k">delete</span> <span class="nx">global_novar</span><span class="p">;</span> <span class="c1">// true</span>
+<span class="k">delete</span> <span class="nx">global_fromfunc</span><span class="p">;</span> <span class="c1">// true</span>
 
-<p>// 试图删除
-delete global<em>var; // false
-delete global</em>novar; // true
-delete global_fromfunc; // true</p>
-
-<p>// 测试该删除
-typeof global<em>var; // &quot;number&quot;
-typeof global</em>novar; // &quot;undefined&quot;
-typeof global_fromfunc; // &quot;undefined&quot;
-```</p>
+<span class="c1">// 测试该删除</span>
+<span class="k">typeof</span> <span class="nx">global_var</span><span class="p">;</span> <span class="c1">// &quot;number&quot;</span>
+<span class="k">typeof</span> <span class="nx">global_novar</span><span class="p">;</span> <span class="c1">// &quot;undefined&quot;</span>
+<span class="k">typeof</span> <span class="nx">global_fromfunc</span><span class="p">;</span> <span class="c1">// &quot;undefined&quot;</span>
+</code></pre></div>
+<!-- more -->
 
 <h2>2、访问全局变量的方法</h2>
 
