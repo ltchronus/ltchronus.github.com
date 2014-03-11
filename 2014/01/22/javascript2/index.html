@@ -169,14 +169,13 @@
 
 <p><img src="http://images.cnitblog.com/blog/180279/201401/220008250549.png" alt="此处输入图片的描述"></p>
 
-<p>所以如下是函数表达式。
-<code>javascript
-(function foo(){})
-</code></p>
-
+<p>所以如下是函数表达式。</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){})</span>
+</code></pre></div>
 <h2>2、函数声明与函数表达式的区别</h2>
 
-<p>首先，函数声明会在任何表达式被解析和求值之前先被解析和求值，即使你的声明在代码的最后一行，它也会在同作用域内第一个表达式之前被解析/求值，参考如下例子，函数fn是在alert之后声明的，但是在alert执行的时候，fn已经有定义了：　　
+<p>首先，函数声明会在任何表达式被解析和求值之前先被解析和求值，即使你的声明在代码的最后一行，它也会在同作用域内第一个表达式之前被解析/求值，参考如下例子，函数fn是在alert之后声明的，但是在alert执行的时候，fn已经有定义了：
+　　
 ```javascript
 alert(fn());</p>
 
@@ -185,35 +184,33 @@ alert(fn());</p>
 }
 ```</p>
 
-<p>另外，还有一点需要提醒一下，函数声明在条件语句内虽然可以用，但是没有被标准化，也就是说不同的环境可能有不同的执行结果，所以这样情况下，最好使用函数表达式：
-```javascript
-// 千万别这样做！
-// 因为有的浏览器会返回first的这个function，而有的浏览器返回的却是第二个
-if (true) {
-    function foo() {
-        return &#39;first&#39;;
-    }
-}else {
-    function foo() {
-        return &#39;second&#39;;
-    }
-}
-foo();</p>
+<p>另外，还有一点需要提醒一下，函数声明在条件语句内虽然可以用，但是没有被标准化，也就是说不同的环境可能有不同的执行结果，所以这样情况下，最好使用函数表达式：</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 千万别这样做！</span>
+<span class="c1">// 因为有的浏览器会返回first的这个function，而有的浏览器返回的却是第二个</span>
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;first&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;second&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">foo</span><span class="p">();</span>
 
-<p>// 相反，这样情况，我们要用函数表达式
-var foo;
-if (true) {
-    foo = function() {
-        return &#39;first&#39;;
-    };
-}else {
-    foo = function() {
-        return &#39;second&#39;;
-    };
-}
-foo();
-```</p>
-
+<span class="c1">// 相反，这样情况，我们要用函数表达式</span>
+<span class="kd">var</span> <span class="nx">foo</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;first&#39;</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+    <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;second&#39;</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+<span class="nx">foo</span><span class="p">();</span>
+</code></pre></div>
 <hr>
 
 <p>感谢@汤姆大叔 的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript系列》</a>指导我学习！</p>

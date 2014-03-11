@@ -193,21 +193,19 @@ var global = (function () {
 <span class="p">}</span>
 <span class="nx">func</span><span class="p">();</span>
 </code></pre></div>
-<p>在函数中任意位置的var语句都会在函数顶部预先声明。于是上面代码等同于
-```javascript
-myname = &quot;global&quot;; // global variable
-function func() {
-   var myname; // 等同于 -&gt; var myname = undefined;
-   alert(myname); // &quot;undefined&quot;
-   myname = &quot;local&quot;;
-   alert(myname); // &quot;local&quot;}
-func();
-//所以应该弹出的是</p>
+<p>在函数中任意位置的var语句都会在函数顶部预先声明。于是上面代码等同于</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">myname</span> <span class="o">=</span> <span class="s2">&quot;global&quot;</span><span class="p">;</span> <span class="c1">// global variable</span>
+<span class="kd">function</span> <span class="nx">func</span><span class="p">()</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">myname</span><span class="p">;</span> <span class="c1">// 等同于 -&gt; var myname = undefined;</span>
+   <span class="nx">alert</span><span class="p">(</span><span class="nx">myname</span><span class="p">);</span> <span class="c1">// &quot;undefined&quot;</span>
+   <span class="nx">myname</span> <span class="o">=</span> <span class="s2">&quot;local&quot;</span><span class="p">;</span>
+   <span class="nx">alert</span><span class="p">(</span><span class="nx">myname</span><span class="p">);</span> <span class="c1">// &quot;local&quot;}</span>
+<span class="nx">func</span><span class="p">();</span>
+<span class="c1">//所以应该弹出的是</span>
 
-<p>//　　undefined
-//　　local
-```</p>
-
+<span class="c1">//　　undefined</span>
+<span class="c1">//　　local</span>
+</code></pre></div>
 <blockquote>
 <p>　　代码处理分两个阶段，第一阶段是变量，函数声明，以及正常格式的参数创建，这是一个解析和进入上下文 的阶段。第二个阶段是代码执行，函数表达式和不合格的标识符（为声明的变量）被创建。但是，出于实用的目的，我们就采用了”hoisting”这个概念， 这种ECMAScript标准中并未定义，通常用来描述行为。</p>
 </blockquote>
@@ -218,20 +216,18 @@ func();
 
 <p>尽量不要使用eval()，它会干扰作用域链。必须使用时可以考虑用Function()代替。</p>
 
-<p>如下eval()可以访问和修改外部作用域：　
-```javascript
-(function () {
-   var local = 1;
-   eval(&quot;local = 3; console.log(local)&quot;); // logs &quot;3&quot;
-   console.log(local); // logs &quot;3&quot;
-}());</p>
+<p>如下eval()可以访问和修改外部作用域：　</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">local</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+   <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;local = 3; console.log(local)&quot;</span><span class="p">);</span> <span class="c1">// logs &quot;3&quot;</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">local</span><span class="p">);</span> <span class="c1">// logs &quot;3&quot;</span>
+<span class="p">}());</span>
 
-<p>(function () {
-   var local = 1;
-   Function(&quot;console.log(typeof local);&quot;)(); // logs undefined
-}());
-```</p>
-
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">local</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+   <span class="nb">Function</span><span class="p">(</span><span class="s2">&quot;console.log(typeof local);&quot;</span><span class="p">)();</span> <span class="c1">// logs undefined</span>
+<span class="p">}());</span>
+</code></pre></div>
 <h2>5、parseInt()和数值转换</h2>
 <div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">month</span> <span class="o">=</span> <span class="s2">&quot;06&quot;</span><span class="p">,</span>
     <span class="nx">year</span> <span class="o">=</span> <span class="s2">&quot;09&quot;</span><span class="p">;</span>
@@ -240,11 +236,10 @@ func();
 </code></pre></div>
 <p>　　parseInt(year)最好指定技术参数，否则&#39;09&#39;会被当做8进制的数。（ECMAScript 5中不会，已经在最新chrome和Safari中尝试parseInt(year)默认是10进制的）。</p>
 
-<p>　　其他字符串转换成数字方法：
-```
-+&quot;08&quot; // 结果是 8
-Number(&quot;08&quot;) // 8</p>
-
+<p>其他字符串转换成数字方法：</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="o">+</span><span class="s2">&quot;08&quot;</span> <span class="c1">// 结果是 8</span>
+<span class="nb">Number</span><span class="p">(</span><span class="s2">&quot;08&quot;</span><span class="p">)</span> <span class="c1">// 8</span>
+</code></pre></div>
     <!-- </pre> -->
     <hr>
     <div class="pagination btn-group">
