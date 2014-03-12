@@ -154,7 +154,22 @@
     </p>
     
         
-            执行上下文和变量对象 复习 执行上下文 每次当控制器转到ECMAScript可执行代码的时候，即会进入到一个执行上下文。活动的执行上下文组在逻辑上组成一个堆栈。堆栈底部永远都是全局上下文(global context)，而顶部就是当前(活动的)执行上下文。堆栈在EC类型进入和退出上下文的时候被修改（推入或弹出）。 可执行代码类型 假设，可执行上下文堆栈是一个数组： ECStack = []; 每次进入function或eval的时候，这个堆栈会被压入。 1. 全局代码 这种类型的代码是在&quot;程序&quot;级处理的：例如加载外部的js文件或者本地标签内的代码。全局代码不包括任何function体内的代码。 在初始化（程序启动）阶段，ECStack是这样的： ECStack = [ globalContext ]; 2. 函数代码 当进入funtion函数代码(所有类型的funtions)的时候，ECStack被压入新元素。需要注意的是，具体的函数代码不包括内部函数(inner functions)代码。如下所示，我们使函数自己调自己的方式递归一次： ECStack = [ &lt;foo&gt; functionContext globalContext ]; 每次return的时候，都会退出当前执行上下文的，相应地ECStack就会弹出，栈指针会自动移动位置，这是一个典型的堆栈实现方式。一个抛出的异常如果没被截获的话也有可能从一个或多个执行上下文退出。相关代码执行完以后，ECStack只会包含全局上下文(global context)，一直到整个应用程序结束。 3.Eval 代码 eval 代码有点儿意思。它有一个概念： 调用上下文(calling context),例如，eval函数调用的时候产生的上下文。eval(变量或函数声明)活动会影响调用上下文(calling context)。 eval(&#39;var x = 10&#39;); (function foo() { eval(&#39;var y = 20&#39;); })(); alert(x); // 10 alert(y); // &quot;y&quot; 提示没有声明 ECStack的变化过程： ECStack = [ globalContext ]; // eval(&#39;var x = 10&#39;); ECStack.push( evalContext, callingContext: globalContext ); // eval exited context ECStack.pop(); // foo funciton call ECStack.push(&lt;foo&gt; functionContext); // eval(&#39;var y = 20&#39;); ECStack.push( evalContext, callingContext: &lt;foo&gt; functionContext ); // return from...
+            <h1>执行上下文和变量对象 复习</h1>
+
+<h2>执行上下文</h2>
+
+<blockquote>
+<p>每次当控制器转到ECMAScript可执行代码的时候，即会进入到一个执行上下文。活动的执行上下文组在逻辑上组成一个堆栈。堆栈底部永远都是全局上下文(global context)，而顶部就是当前(活动的)执行上下文。堆栈在EC类型进入和退出上下文的时候被修改（推入或弹出）。  </p>
+</blockquote>
+
+<h3>可执行代码类型</h3>
+
+<p>假设，可执行上下文堆栈是一个数组：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">ECStack</span> <span class="o">=</span> <span class="p">[];</span>
+</code></pre></div>
+<p>每次进入function或eval的时候，这个堆栈会被压入。  </p>
+
+
         
         <a href="/2014/03/06/javascript7" type="button" class="btn btn-default">read more</a>
     </div>

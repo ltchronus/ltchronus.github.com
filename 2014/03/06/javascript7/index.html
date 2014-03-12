@@ -159,6 +159,8 @@
 </code></pre></div>
 <p>每次进入function或eval的时候，这个堆栈会被压入。  </p>
 
+<!-- more -->
+
 <h4>1. 全局代码</h4>
 
 <p>这种类型的代码是在&quot;程序&quot;级处理的：例如加载外部的js文件或者本地<script></script>标签内的代码。全局代码不包括任何function体内的代码。
@@ -218,9 +220,203 @@
 <span class="c1">// return from foo</span>
 <span class="nx">ECStack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
 </code></pre></div>
+<h2>变量对象</h2>
+
+<p>变量与执行上下文有关。   </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// 全局上下文中的变量</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="c1">// function上下文中的局部变量</span>
+<span class="p">})();</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// 10</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span> <span class="c1">// 全局变量 &quot;b&quot; 没有声明</span>
+</code></pre></div>
+<p>变量对象就是变量的数据数据存储和访问机制。</p>
+
+<blockquote>
+<p>变量对象(缩写为VO)是一个与执行上下文相关的特殊对象，它存储着在上下文中声明的以下内容：
+     1. 变量 (var, 变量声明);
+     2. 函数声明 (FunctionDeclaration, 缩写为FD);
+     3. 函数的形参</p>
+</blockquote>
+
+<p>用一个对象来理解变量对象：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">VO</span> <span class="o">=</span> <span class="p">{};</span>
+</code></pre></div>
+<p>变量对象就是执行上下文的属性：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">activeExecutionContext</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">VO</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// 上下文数据（var, FD, function arguments)</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3>不同执行上下文的变量对象</h3>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="err">抽象变量对象</span><span class="nx">VO</span> <span class="p">(</span><span class="err">变量初始化过程的一般行为</span><span class="p">)</span>
+  <span class="err">║</span>
+  <span class="err">╠══</span><span class="o">&gt;</span> <span class="err">全局上下文变量对象</span><span class="nx">GlobalContextVO</span>
+  <span class="err">║</span>        <span class="p">(</span><span class="nx">VO</span> <span class="o">===</span> <span class="k">this</span> <span class="o">===</span> <span class="nx">global</span><span class="p">)</span>
+  <span class="err">║</span>
+  <span class="err">╚══</span><span class="o">&gt;</span> <span class="err">函数上下文变量对象</span><span class="nx">FunctionContextVO</span>
+           <span class="p">(</span><span class="nx">VO</span> <span class="o">===</span> <span class="nx">AO</span><span class="p">,</span> <span class="err">并且添加了</span><span class="o">&lt;</span><span class="nx">arguments</span><span class="o">&gt;</span><span class="err">和</span><span class="o">&lt;</span><span class="nx">formal</span> <span class="nx">parameters</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<h4>1全局上下文</h4>
+
+<blockquote>
+<p><strong>全局对象(Global object) 是在进入任何执行上下文之前就已经创建了的对象；
+这个对象只存在一份，它的属性在程序中任何地方都可以访问，全局对象的生命周期终止于程序退出那一刻。</strong></p>
+</blockquote>
+
+<p>全局对象初始创建阶段将Math、String、Date、parseInt作为自身属性，等属性初始化，同样也可以有额外创建的其它对象作为属性（其可以指向到全局对象自身）。例如，在DOM中，全局对象的window属性就可以引用全局对象自身：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">global</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nb">Math</span><span class="o">:</span> <span class="o">&lt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nb">String</span><span class="o">:</span> <span class="o">&lt;</span><span class="p">...</span><span class="o">&gt;</span>
+    <span class="p">...</span>
+    <span class="p">...</span>
+    <span class="nb">window</span><span class="o">:</span> <span class="nx">global</span> <span class="c1">//引用自身</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>全局对象不能通过名词直接访问，可以通过全局上下文的this，也可以通过递归调用自身。  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nb">String</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// 就是global.String(10);</span>
+
+<span class="c1">// 带有前缀</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// === global.window.a = 10 === global.a = 10;</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="c1">// global.b = 20;</span>
+</code></pre></div>
+<p>全局上下文中的变量对象就是全局变量自己。
+<code>javascript
+VO(globalContext) === global;
+</code></p>
+
+<h4>2函数上下文</h4>
+
+<p>在函数执行上下文中，VO是不能直接访问的，此时由活动对象(activation object,缩写为AO)扮演VO的角色。  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">VO</span><span class="p">(</span><span class="nx">functionContext</span><span class="p">)</span> <span class="o">===</span> <span class="nx">AO</span><span class="p">;</span>
+</code></pre></div>
+<p>活动对象是在进入函数上下文时刻被创建的，它通过函数的arguments属性初始化。arguments属性的值是Arguments对象：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">AO</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">arguments</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">ArgO</span><span class="o">&gt;</span>
+<span class="p">};</span>
+</code></pre></div>
+<blockquote>
+<p>Arguments对象是活动对象的一个属性，它包括如下属性：</p>
+
+<ul>
+<li>callee — 指向当前函数的引用</li>
+<li>length — 真正传递的参数个数</li>
+<li>properties-indexes (字符串类型的整数) 属性的值就是函数的参数值(按参数列表从左到右排列)。 properties-indexes内部元素的个数等于arguments.length. properties-indexes的值和实际传递进来的参数之间是共享的。<br></li>
+</ul>
+</blockquote>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// 声明的函数参数数量arguments (x, y, z)</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">foo</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span> <span class="c1">// 3</span>
+
+    <span class="c1">// 真正传进来的参数个数(only x, y)</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span> <span class="c1">// 2</span>
+
+    <span class="c1">// 参数的callee是函数自身</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">callee</span> <span class="o">===</span> <span class="nx">foo</span><span class="p">);</span> <span class="c1">// true</span>
+
+    <span class="c1">// 参数共享</span>
+
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// true</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 10</span>
+
+    <span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 20</span>
+
+    <span class="nx">x</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// 30</span>
+
+    <span class="c1">// 不过，没有传进来的参数z，和参数的第3个索引值是不共享的</span>
+
+    <span class="nx">z</span> <span class="o">=</span> <span class="mi">40</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span> <span class="c1">// undefined</span>
+
+    <span class="nx">arguments</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span> <span class="c1">// 40</span>
+
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</code></pre></div>
+<h3>处理上下文代码的2个阶段</h3>
+
+<ol>
+<li>进入执行上下文</li>
+<li> 执行代码</li>
+</ol>
+
+<h4>进入执行上下文</h4>
+
+<blockquote>
+<p>当进入执行上下文(代码执行之前)时，VO里已经包含了下列属性(前面已经说了)：</p>
+
+<p>1.函数的所有形参(如果我们是在函数执行上下文中)
+    <strong>— 由名称和对应值组成的一个变量对象的属性被创建；没有传递对应参数的话，那么由名称和undefined值组成的一种变量对象的属性也将被创建。</strong>
+2.所有函数声明(FunctionDeclaration, FD) 
+<strong>—由名称和对应值（函数对象(function-object)）组成一个变量对象的属性被创建；如果变量对象已经存在相同名称的属性，则完全替换这个属性。</strong>
+3.所有变量声明(var, VariableDeclaration)
+    <strong>— 由名称和对应值（undefined）组成一个变量对象的属性被创建；如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性。</strong></p>
+</blockquote>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">test</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="kd">function</span> <span class="nx">d</span><span class="p">()</span> <span class="p">{}</span>
+  <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_e</span><span class="p">()</span> <span class="p">{};</span>
+  <span class="p">(</span><span class="kd">function</span> <span class="nx">x</span><span class="p">()</span> <span class="p">{});</span>
+<span class="p">}</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// call</span>
+<span class="c1">//------------------------------------------------------</span>
+<span class="nx">AO</span><span class="p">(</span><span class="nx">test</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">a</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="nx">b</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+  <span class="nx">c</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+  <span class="nx">d</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">reference</span> <span class="nx">to</span> <span class="nx">FunctionDeclaration</span> <span class="s2">&quot;d&quot;</span><span class="o">&gt;</span>
+  <span class="nx">e</span><span class="o">:</span> <span class="kc">undefined</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4>代码执行</h4>
+
+<p>这个周期内，AO/VO已经拥有了属性(不过，并不是所有的属性都有值，大部分属性的值还是系统默认的初始值undefined )。   </p>
+
+<p>AO/VO在代码解释期间被修改如下：    </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">AO</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">AO</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">reference</span> <span class="nx">to</span> <span class="nx">FunctionExpression</span> <span class="s2">&quot;_e&quot;</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>例子：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// function</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 10</span>
+
+<span class="nx">x</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">x</span><span class="p">()</span> <span class="p">{};</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 20</span>
+</code></pre></div>
+<p>为什么第一个alert “x” 的返回值是function，而且它还是在“x” 声明之前访问的“x” 的？为什么不是10或20呢？因为，根据规范函数声明是在当进入上下文时填入的； 同意周期，在进入上下文的时候还有一个变量声明“x”，那么正如我们在上一个阶段所说，变量声明在顺序上跟在函数声明和形式参数声明之后，而且在这个进入上下文阶段，变量声明不会干扰VO中已经存在的同名函数声明或形式参数声明，因此，在进入上下文时，VO的结构如下：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">VO</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="nx">VO</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">reference</span> <span class="nx">to</span> <span class="nx">FunctionDeclaration</span> <span class="s2">&quot;x&quot;</span><span class="o">&gt;</span>
+
+<span class="c1">// 找到var x = 10;</span>
+<span class="c1">// 如果function &quot;x&quot;没有已经声明的话</span>
+<span class="c1">// 这时候&quot;x&quot;的值应该是undefined</span>
+<span class="c1">// 但是这个case里变量声明没有影响同名的function的值</span>
+
+<span class="nx">VO</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">the</span> <span class="nx">value</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">disturbed</span><span class="p">,</span> <span class="nx">still</span> <span class="kd">function</span><span class="o">&gt;</span>
+</code></pre></div>
+<p>紧接着，在执行代码阶段，VO做如下修改：</p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">VO</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">VO</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</code></pre></div>
 <hr>
 
-<p>感谢@汤姆大叔 的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript系列》</a>指导我学习！</p>
+<p>javascript复习部分直接阅读并记录汤姆大叔的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript系列》</a>
+感谢@汤姆大叔指导我学习！</p>
 
     <!-- </pre> -->
     <hr>
