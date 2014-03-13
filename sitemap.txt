@@ -9,6 +9,7 @@ http://username.github.io/sitemap.txt
 http://username.github.io/tags.html
 http://username.github.io/page2/index.html
 
+http://username.github.io/2014/03/13/new-post
 http://username.github.io/2014/03/06/javascript7
 http://username.github.io/algorithm/2014/03/03/tree
 http://username.github.io/javascript/2014/02/23/javascript6

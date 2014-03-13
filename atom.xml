@@ -4,13 +4,21 @@
  <title>Code Monkey‘s Blog</title>
  <link href="http://username.github.io/" rel="self"/>
  <link href="http://username.github.io"/>
- <updated>2014-03-12T21:19:45+08:00</updated>
+ <updated>2014-03-13T22:52:10+08:00</updated>
  <id>http://username.github.io</id>
  <author>
    <name>ltchronus</name>
    <email>ltchronus@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>new post</title>
+   <link href="http://username.github.io/2014/03/13/new-post"/>
+   <updated>2014-03-13T00:00:00+08:00</updated>
+   <id>http://username.github.io/2014/03/13/new-post</id>
+   <content type="html"></content>
+ </entry>
  
  <entry>
    <title>JavaScript复习7</title>

@@ -148,6 +148,50 @@
 
     
     <div class="pagecontent">
+    <h1><a href="/javascript/2014/02/18/javascript5">复习JavaScript5</a></h1>
+    <p class="author">
+        <span class="date">February 18, 2014</span>
+    </p>
+    
+        
+            <h1>立即调用的函数表达式 复习</h1>
+
+<h2>函数的执行上下文</h2>
+
+<blockquote>
+<p>在JavaScript里，任何function在执行的时候都会创建一个执行上下文，因为为function声明的变量和声明的function有可能只在该function内部。  </p>
+</blockquote>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 由于该function里返回了另外一个function，其中这个function可以访问自由变量i</span>
+<span class="c1">// 所有说，这个内部的function实际上是有权限可以调用内部的对象。</span>
+
+<span class="kd">function</span> <span class="nx">makeCounter</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 只能在makeCounter内部访问i</span>
+    <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">++</span><span class="nx">i</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">// 注意，counter和counter2是不同的实例，分别有自己范围内的i。</span>
+
+<span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="nx">makeCounter</span><span class="p">();</span>
+<span class="nx">counter</span><span class="p">();</span> <span class="c1">// logs: 1</span>
+<span class="nx">counter</span><span class="p">();</span> <span class="c1">// logs: 2</span>
+
+<span class="kd">var</span> <span class="nx">counter2</span> <span class="o">=</span> <span class="nx">makeCounter</span><span class="p">();</span>
+<span class="nx">counter2</span><span class="p">();</span> <span class="c1">// logs: 1</span>
+<span class="nx">counter2</span><span class="p">();</span> <span class="c1">// logs: 2</span>
+
+<span class="nx">alert</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">// 引用错误：i没有defind（因为i是存在于makeCounter内部。</span>
+</code></pre></div>
+
+        
+        <a href="/javascript/2014/02/18/javascript5" type="button" class="btn btn-default">read more</a>
+    </div>
+    
+    
+    <div class="pagecontent">
     <h1><a href="/2014/02/12/javascript4">复习JavaScript 4</a></h1>
     <p class="author">
         <span class="date">February 12, 2014</span>

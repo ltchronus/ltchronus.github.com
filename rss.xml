@@ -5,10 +5,18 @@
         <description>Code Monkey‘s Blog - ltchronus</description>
         <link>http://username.github.io</link>
         <link>http://username.github.io</link>
-        <lastBuildDate>2014-03-12T21:19:45+08:00</lastBuildDate>
-        <pubDate>2014-03-12T21:19:45+08:00</pubDate>
+        <lastBuildDate>2014-03-13T22:52:10+08:00</lastBuildDate>
+        <pubDate>2014-03-13T22:52:10+08:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>new post</title>
+                <description></description>
+                <link>http://username.github.io/2014/03/13/new-post</link>
+                <guid>http://username.github.io/2014/03/13/new-post</guid>
+                <pubDate>2014-03-13T00:00:00+08:00</pubDate>
+        </item>
 
         <item>
                 <title>JavaScript复习7</title>
