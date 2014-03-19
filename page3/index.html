@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-         Archive -  Code Monkey‘s Blog
+         ltchronus -  Code Monkey‘s Blog
     </title>
     
     <meta name="author" content="ltchronus">
@@ -69,7 +69,7 @@
     
       
       	
-      	<li class="active"><a href="/archive.html" class="active">Archive</a></li>
+      	<li><a href="/archive.html">Archive</a></li>
       	
       
     
@@ -138,7 +138,7 @@
             
 
 	<div class="page-header">
-  		<h1>Archive </h1>
+  		<h1>ltchronus  <small>记录我的点点滴滴</small></h1>
   	</div>
 
 
@@ -150,182 +150,103 @@
 
 
 
-  
     
+    <div class="pagecontent">
+    <h1><a href="/2014/01/10/javascript1">JavaScript复习1</a></h1>
+    <p class="author">
+        <span class="date">January 10, 2014</span>
+    </p>
     
-    
-    
-  
-    
-      <h2>2014</h2>
-      <h3>March</h3>
-      <ul>
-    
-  
-    <li><span>March 19, 2014</span> &raquo; <a href="/javascript/2014/03/19/javascript8">javaScript复习8</a></li>
-  
-    
-          
         
-      
-    
-  
-    
-    
-    
-    
-  
-    
-  
-    <li><span>March 13, 2014</span> &raquo; <a href="/programing/2014/03/13/BianryTree">BinaryTree</a></li>
-  
-    
-          
+            <h1>编写高质量JavaScript代码</h1>
+
+<p>最近发现JavaScript有些基本概念模糊，趁这个机会学习下 @汤姆大叔 的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript》</a>系列，复习记录下遗忘的基础知识。在此感谢汤姆大叔！</p>
+
+<h2>1、全局变量</h2>
+
+<p><strong>隐式全局变量和明确定义的全局变量间的不同：</strong></p>
+
+<blockquote>
+<p>　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。</p>
+</blockquote>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 定义三个全局变量</span>
+<span class="kd">var</span> <span class="nx">global_var</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="nx">global_novar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// 反面教材</span>
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+   <span class="nx">global_fromfunc</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// 反面教材</span>
+<span class="p">}());</span>
+<span class="c1">// 试图删除</span>
+<span class="k">delete</span> <span class="nx">global_var</span><span class="p">;</span> <span class="c1">// false</span>
+<span class="k">delete</span> <span class="nx">global_novar</span><span class="p">;</span> <span class="c1">// true</span>
+<span class="k">delete</span> <span class="nx">global_fromfunc</span><span class="p">;</span> <span class="c1">// true</span>
+
+<span class="c1">// 测试该删除</span>
+<span class="k">typeof</span> <span class="nx">global_var</span><span class="p">;</span> <span class="c1">// &quot;number&quot;</span>
+<span class="k">typeof</span> <span class="nx">global_novar</span><span class="p">;</span> <span class="c1">// &quot;undefined&quot;</span>
+<span class="k">typeof</span> <span class="nx">global_fromfunc</span><span class="p">;</span> <span class="c1">// &quot;undefined&quot;</span>
+</code></pre></div>
+
         
-      
-    
-  
-    
+        <a href="/2014/01/10/javascript1" type="button" class="btn btn-default">read more</a>
+    </div>
     
     
+
+<!-- </ul>
+<ul class="pager">
     
-  
-    
-  
-    <li><span>March  6, 2014</span> &raquo; <a href="/2014/03/06/javascript7">JavaScript复习7</a></li>
-  
-    
-          
+    <li><a href="/page2/">上一页</a>
+    </li>
+     
+     
+     
+     
+         
+     
+     
+     
         
-      
-    
-  
-    
-    
-    
-    
-  
-    
-  
-    <li><span>March  3, 2014</span> &raquo; <a href="/programing/2014/03/03/tree">多叉树的复习</a></li>
-  
-    
-          
+     
+     
         
-          </ul>
-          <h3>February</h3>
-          <ul>
+        <li><a href="/page2/">2</a></li>
         
-      
+     
+    
+    <li><a href="/page3/">末页</a>
+    </li>
+    <li><a href="#">第3页 / 共3页</a>
+    </li>
+</ul> -->
+
+
+<div class="pagination">
+  
+    <a href="/page2">&laquo; Prev</a>
+  
+
+  
+    
+      <a href="/index.html">1</a>
     
   
     
-    
-    
-    
-  
-    
-  
-    <li><span>February 23, 2014</span> &raquo; <a href="/javascript/2014/02/23/javascript6">复习JavaScript6</a></li>
-  
-    
-          
-        
-      
+      <a href="/page2">2</a>
     
   
     
-    
-    
-    
-  
+      <em>3</em>
     
   
-    <li><span>February 20, 2014</span> &raquo; <a href="/plantuml/2014/02/20/jekyllplantuml">为jekyll添加plantUML</a></li>
+
   
-    
-          
-        
-      
-    
+    <span>Next &raquo;</span>
   
-    
-    
-    
-    
-  
-    
-  
-    <li><span>February 18, 2014</span> &raquo; <a href="/javascript/2014/02/18/javascript5">复习JavaScript5</a></li>
-  
-    
-          
-        
-      
-    
-  
-    
-    
-    
-    
-  
-    
-  
-    <li><span>February 12, 2014</span> &raquo; <a href="/2014/02/12/javascript4">复习JavaScript 4</a></li>
-  
-    
-          
-        
-          </ul>
-          <h3>January</h3>
-          <ul>
-        
-      
-    
-  
-    
-    
-    
-    
-  
-    
-  
-    <li><span>January 25, 2014</span> &raquo; <a href="/2014/01/25/javascript3">JavaScript复习3</a></li>
-  
-    
-          
-        
-      
-    
-  
-    
-    
-    
-    
-  
-    
-  
-    <li><span>January 22, 2014</span> &raquo; <a href="/2014/01/22/javascript2">JavaScript复习2</a></li>
-  
-    
-          
-        
-      
-    
-  
-    
-    
-    
-    
-  
-    
-  
-    <li><span>January 10, 2014</span> &raquo; <a href="/2014/01/10/javascript1">JavaScript复习1</a></li>
-  
-    
-      </ul>
-    
-  
+</div>
+
+
+
+
 
 
   </div>

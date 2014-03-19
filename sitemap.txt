@@ -8,7 +8,9 @@ http://username.github.io/rss.xml
 http://username.github.io/sitemap.txt
 http://username.github.io/tags.html
 http://username.github.io/page2/index.html
+http://username.github.io/page3/index.html
 
+http://username.github.io/javascript/2014/03/19/javascript8
 http://username.github.io/programing/2014/03/13/BianryTree
 http://username.github.io/2014/03/06/javascript7
 http://username.github.io/programing/2014/03/03/tree

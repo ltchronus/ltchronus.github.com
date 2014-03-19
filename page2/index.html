@@ -110,6 +110,10 @@
       
     
   
+    
+      
+    
+  
 
 
 
@@ -146,6 +150,26 @@
 
 
 
+    
+    <div class="pagecontent">
+    <h1><a href="/plantuml/2014/02/20/jekyllplantuml">为jekyll添加plantUML</a></h1>
+    <p class="author">
+        <span class="date">February 20, 2014</span>
+    </p>
+    
+        
+            jekyll on github Pages 添加plantuml
+
+经过昨天的努力终于把plantuml装好了，效果如下：
+
+
+
+具体过程稍后再补
+
+        
+        <a href="/plantuml/2014/02/20/jekyllplantuml" type="button" class="btn btn-default">read more</a>
+    </div>
+    
     
     <div class="pagecontent">
     <h1><a href="/javascript/2014/02/18/javascript5">复习JavaScript5</a></h1>
@@ -293,46 +317,6 @@
     </div>
     
     
-    <div class="pagecontent">
-    <h1><a href="/2014/01/10/javascript1">JavaScript复习1</a></h1>
-    <p class="author">
-        <span class="date">January 10, 2014</span>
-    </p>
-    
-        
-            <h1>编写高质量JavaScript代码</h1>
-
-<p>最近发现JavaScript有些基本概念模糊，趁这个机会学习下 @汤姆大叔 的<a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html">《深入理解JavaScript》</a>系列，复习记录下遗忘的基础知识。在此感谢汤姆大叔！</p>
-
-<h2>1、全局变量</h2>
-
-<p><strong>隐式全局变量和明确定义的全局变量间的不同：</strong></p>
-
-<blockquote>
-<p>　通过var创建的全局变量（任何函数之外的程序中创建）是不能被删除的。 　无var创建的隐式全局变量（无视是否在函数中创建）是能被删除的。</p>
-</blockquote>
-<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="c1">// 定义三个全局变量</span>
-<span class="kd">var</span> <span class="nx">global_var</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="nx">global_novar</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// 反面教材</span>
-<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-   <span class="nx">global_fromfunc</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// 反面教材</span>
-<span class="p">}());</span>
-<span class="c1">// 试图删除</span>
-<span class="k">delete</span> <span class="nx">global_var</span><span class="p">;</span> <span class="c1">// false</span>
-<span class="k">delete</span> <span class="nx">global_novar</span><span class="p">;</span> <span class="c1">// true</span>
-<span class="k">delete</span> <span class="nx">global_fromfunc</span><span class="p">;</span> <span class="c1">// true</span>
-
-<span class="c1">// 测试该删除</span>
-<span class="k">typeof</span> <span class="nx">global_var</span><span class="p">;</span> <span class="c1">// &quot;number&quot;</span>
-<span class="k">typeof</span> <span class="nx">global_novar</span><span class="p">;</span> <span class="c1">// &quot;undefined&quot;</span>
-<span class="k">typeof</span> <span class="nx">global_fromfunc</span><span class="p">;</span> <span class="c1">// &quot;undefined&quot;</span>
-</code></pre></div>
-
-        
-        <a href="/2014/01/10/javascript1" type="button" class="btn btn-default">read more</a>
-    </div>
-    
-    
 
 <!-- </ul>
 <ul class="pager">
@@ -347,10 +331,21 @@
         
      
      
+        
+        <li>
+            <a href="#">
+                <span class="current-page">2</span>
+            </a>
+        </li>
+        
+     
     
-    <li><a href="/page2/">末页</a>
+    <li><a href="/page3/">下一页</a>
     </li>
-    <li><a href="#">第2页 / 共2页</a>
+    
+    <li><a href="/page3/">末页</a>
+    </li>
+    <li><a href="#">第2页 / 共3页</a>
     </li>
 </ul> -->
 
@@ -369,9 +364,13 @@
       <em>2</em>
     
   
+    
+      <a href="/page3">3</a>
+    
+  
 
   
-    <span>Next &raquo;</span>
+    <a href="/page3">Next &raquo;</a>
   
 </div>
 
