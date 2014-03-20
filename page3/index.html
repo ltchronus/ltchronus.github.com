@@ -152,6 +152,37 @@
 
     
     <div class="pagecontent">
+    <h1><a href="/2014/01/22/javascript2">JavaScript复习2</a></h1>
+    <p class="author">
+        <span class="date">January 22, 2014</span>
+    </p>
+    
+        
+            <h1>揭秘命名函数表达式</h1>
+
+<h2>1、函数表达式和函数声明</h2>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="err">函数声明</span><span class="o">:</span>
+<span class="kd">function</span> <span class="err">函数名称</span> <span class="p">(</span><span class="err">参数：可选</span><span class="p">){</span> <span class="err">函数体</span> <span class="p">}</span>
+
+<span class="err">函数表达式：</span>
+<span class="kd">function</span> <span class="err">函数名称（可选）</span><span class="p">(</span><span class="err">参数：可选</span><span class="p">){</span> <span class="err">函数体</span> <span class="p">}</span> 
+<span class="c1">//////////////////////////////////////////////////////////</span>
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){}</span> <span class="c1">// 声明，因为它是程序的一部分</span>
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(){};</span> <span class="c1">// 表达式，因为它是赋值表达式的一部分</span>
+
+<span class="k">new</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){};</span> <span class="c1">// 表达式，因为它是new表达式</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){}</span> <span class="c1">// 声明，因为它是函数体的一部分</span>
+<span class="p">})();</span>
+</code></pre></div>
+
+        
+        <a href="/2014/01/22/javascript2" type="button" class="btn btn-default">read more</a>
+    </div>
+    
+    
+    <div class="pagecontent">
     <h1><a href="/2014/01/10/javascript1">JavaScript复习1</a></h1>
     <p class="author">
         <span class="date">January 10, 2014</span>

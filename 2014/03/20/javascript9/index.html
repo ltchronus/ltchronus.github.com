@@ -5,9 +5,10 @@
 <head>
     <meta charset="utf-8">
     <title>
-         ltchronus -  Code Monkey‘s Blog
+         JavaScript复习9 -  Code Monkey‘s Blog
     </title>
     
+    <meta name="description" content="">
     <meta name="author" content="ltchronus">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
@@ -137,188 +138,59 @@
         <div >
             
 
-	<div class="page-header">
-  		<h1>ltchronus  <small>记录我的点点滴滴</small></h1>
-  	</div>
-
-
-<div class="row">
-  <div class="content">
+<div class="page-header">
+  <h1>
+    JavaScript复习9 
     
-
-
-
-
-
-    
-    <div class="pagecontent">
-    <h1><a href="/2014/03/20/javascript9">JavaScript复习9</a></h1>
-    <p class="author">
-        <span class="date">March 20, 2014</span>
-    </p>
-    
-        
-            
-        
-        <a href="/2014/03/20/javascript9" type="button" class="btn btn-default">read more</a>
-    </div>
-    
-    
-    <div class="pagecontent">
-    <h1><a href="/javascript/2014/03/19/javascript8">javaScript复习8</a></h1>
-    <p class="author">
-        <span class="date">March 19, 2014</span>
-    </p>
-    
-        
-            <h1>关于this</h1>
-
-<p>JavaScript中this一直是比较奇怪的，并不像java那样静态绑定当前对象。<br>
-那JavaScript的this到底是怎么定义的呢？</p>
-
-<h2>定义</h2>
-
-<blockquote>
-<p>The this keyword evaluates to the value of the ThisBinding of the current execution context. The this value depends on the callerand the type of code being executed and is determined when control enters the execution context. Thethis value associated with an execution context is immutable.  （ECMA-3）</p>
-</blockquote>
-
-<p>也就是说this是可执行代码类型有关系，在进入执行上下文时确定，而且不可改变。</p>
-
-
-        
-        <a href="/javascript/2014/03/19/javascript8" type="button" class="btn btn-default">read more</a>
-    </div>
-    
-    
-    <div class="pagecontent">
-    <h1><a href="/programing/2014/03/13/BianryTree">BinaryTree</a></h1>
-    <p class="author">
-        <span class="date">March 13, 2014</span>
-    </p>
-    
-        
-            <h1>二叉树 复习</h1>
-
-<p>二叉树是一种每个节点最多有两个子节点的树。
-由于二叉树的子节点数目确定，所以可以直接采用下图方式在内存中实现。  </p>
-
-
-        
-        <a href="/programing/2014/03/13/BianryTree" type="button" class="btn btn-default">read more</a>
-    </div>
-    
-    
-    <div class="pagecontent">
-    <h1><a href="/2014/03/06/javascript7">JavaScript复习7</a></h1>
-    <p class="author">
-        <span class="date">March 06, 2014</span>
-    </p>
-    
-        
-            <h1>执行上下文和变量对象 复习</h1>
-
-<h2>执行上下文</h2>
-
-<blockquote>
-<p>每次当控制器转到ECMAScript可执行代码的时候，即会进入到一个执行上下文。活动的执行上下文组在逻辑上组成一个堆栈。堆栈底部永远都是全局上下文(global context)，而顶部就是当前(活动的)执行上下文。堆栈在EC类型进入和退出上下文的时候被修改（推入或弹出）。  </p>
-</blockquote>
-
-<h3>可执行代码类型</h3>
-
-<p>假设，可执行上下文堆栈是一个数组：  </p>
-<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">ECStack</span> <span class="o">=</span> <span class="p">[];</span>
-</code></pre></div>
-<p>每次进入function或eval的时候，这个堆栈会被压入。  </p>
-
-
-        
-        <a href="/2014/03/06/javascript7" type="button" class="btn btn-default">read more</a>
-    </div>
-    
-    
-    <div class="pagecontent">
-    <h1><a href="/programing/2014/03/03/tree">多叉树的复习</a></h1>
-    <p class="author">
-        <span class="date">March 03, 2014</span>
-    </p>
-    
-        
-            <h1>多叉树复习</h1>
-
-<p>「多叉树」就是分 N 岔的树，每個节点可以有零个、一个、两个、……、 N 个小孩。
-类似：</p>
-
-<p><img src="http://img4.tuchuang.org/uploads/2014/03/QQ20140304-1.png" alt="此处输入图片的描述"></p>
-
-<p>本文主要内容为:
- 1. 文件读入树状数据（json格式），构造多叉树
- 2. 多叉树的深度遍历
- 3. 多叉树的层次遍历</p>
-
-
-        
-        <a href="/programing/2014/03/03/tree" type="button" class="btn btn-default">read more</a>
-    </div>
-    
-    
-
-<!-- </ul>
-<ul class="pager">
-     
-     
-     
-     
-         
-     
-     
-     
-        
-     
-     
-        
-        <li><a href="/page2/">2</a></li>
-        
-     
-    
-    <li><a href="/page2/">下一页</a>
-    </li>
-    
-    <li><a href="/page3/">末页</a>
-    </li>
-    <li><a href="#">第1页 / 共3页</a>
-    </li>
-</ul> -->
-
-
-<div class="pagination">
-  
-    <span>&laquo; Prev</span>
-  
-
-  
-    
-      <em>1</em>
-    
-  
-    
-      <a href="/page2">2</a>
-    
-  
-    
-      <a href="/page3">3</a>
-    
-  
-
-  
-    <a href="/page2">Next &raquo;</a>
-  
+  </h1>
 </div>
 
+<div class="row">
+  <div class="col-md-10 day content">
+    <!-- <pre class="prettyprint linenums"> -->
+    
+    <!-- </pre> -->
+    <hr>
+    <div class="pagination btn-group">
+      
+        <a class="btn prev" href="/javascript/2014/03/19/javascript8" title="javaScript复习8">&larr; Previous</a>
+      
+        <a class="btn" href="/archive.html">Archive</a>
+      
+        <a class="btn next disabled">Next &rarr;</a>
+      
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
 
 
-
+  </div>
+  
+  <div class="col-md-2">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>20 March 2014</span></div>
+    </section>
+         
+             
   </div>
 </div>
 

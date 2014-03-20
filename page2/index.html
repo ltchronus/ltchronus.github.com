@@ -152,6 +152,36 @@
 
     
     <div class="pagecontent">
+    <h1><a href="/javascript/2014/02/23/javascript6">复习JavaScript6</a></h1>
+    <p class="author">
+        <span class="date">February 23, 2014</span>
+    </p>
+    
+        
+            <h1>原型和原型链 复习</h1>
+
+<h2>原型</h2>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">Person</span><span class="p">(){</span>
+    <span class="p">}</span>
+
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Jim&#39;</span><span class="p">;</span>
+<span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">comsole</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">person1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>        
+<span class="kd">var</span> <span class="nx">person2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>          
+</code></pre></div>
+<p>下图说明了Person构造函数、Person原型以及person两个实例的关系。<br>
+<strong>要说明的是当构造函数创建一个新实例后，生成的实例会包含一个[[prototype]]指针，指向构造函数的原型对象。在chrome、Safari、Firefox中以<strong>proto</strong>形式存在；在其他实现中脚本是不可见的。</strong></p>
+
+
+        
+        <a href="/javascript/2014/02/23/javascript6" type="button" class="btn btn-default">read more</a>
+    </div>
+    
+    
+    <div class="pagecontent">
     <h1><a href="/plantuml/2014/02/20/jekyllplantuml">为jekyll添加plantUML</a></h1>
     <p class="author">
         <span class="date">February 20, 2014</span>
@@ -283,37 +313,6 @@
 
         
         <a href="/2014/01/25/javascript3" type="button" class="btn btn-default">read more</a>
-    </div>
-    
-    
-    <div class="pagecontent">
-    <h1><a href="/2014/01/22/javascript2">JavaScript复习2</a></h1>
-    <p class="author">
-        <span class="date">January 22, 2014</span>
-    </p>
-    
-        
-            <h1>揭秘命名函数表达式</h1>
-
-<h2>1、函数表达式和函数声明</h2>
-<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="err">函数声明</span><span class="o">:</span>
-<span class="kd">function</span> <span class="err">函数名称</span> <span class="p">(</span><span class="err">参数：可选</span><span class="p">){</span> <span class="err">函数体</span> <span class="p">}</span>
-
-<span class="err">函数表达式：</span>
-<span class="kd">function</span> <span class="err">函数名称（可选）</span><span class="p">(</span><span class="err">参数：可选</span><span class="p">){</span> <span class="err">函数体</span> <span class="p">}</span> 
-<span class="c1">//////////////////////////////////////////////////////////</span>
-<span class="kd">function</span> <span class="nx">foo</span><span class="p">(){}</span> <span class="c1">// 声明，因为它是程序的一部分</span>
-<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">(){};</span> <span class="c1">// 表达式，因为它是赋值表达式的一部分</span>
-
-<span class="k">new</span> <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){};</span> <span class="c1">// 表达式，因为它是new表达式</span>
-
-<span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="kd">function</span> <span class="nx">bar</span><span class="p">(){}</span> <span class="c1">// 声明，因为它是函数体的一部分</span>
-<span class="p">})();</span>
-</code></pre></div>
-
-        
-        <a href="/2014/01/22/javascript2" type="button" class="btn btn-default">read more</a>
     </div>
     
     
