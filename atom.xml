@@ -4,7 +4,7 @@
  <title>Code Monkey‘s Blog</title>
  <link href="http://username.github.io/" rel="self"/>
  <link href="http://username.github.io"/>
- <updated>2014-03-21T23:29:04+08:00</updated>
+ <updated>2014-03-21T23:32:33+08:00</updated>
  <id>http://username.github.io</id>
  <author>
    <name>ltchronus</name>
@@ -20,7 +20,8 @@
    <content type="html">&lt;h1&gt;作用域链 复习&lt;/h1&gt;
 
 &lt;p&gt;在对变量对的了解中，变量对象作为执行上下文的数据（包括变量、函数声明、函数形参）的概念已经清楚。
-那作用域有一个什么东西？&lt;/p&gt;
+那作用域有一个什么东西？
+&amp;lt;!-- more --&amp;gt;&lt;/p&gt;
 
 &lt;h2&gt;定义&lt;/h2&gt;
 
