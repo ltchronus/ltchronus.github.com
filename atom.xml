@@ -4,7 +4,7 @@
  <title>Code Monkey‘s Blog</title>
  <link href="http://username.github.io/" rel="self"/>
  <link href="http://username.github.io"/>
- <updated>2014-03-21T23:32:33+08:00</updated>
+ <updated>2014-03-21T23:34:36+08:00</updated>
  <id>http://username.github.io</id>
  <author>
    <name>ltchronus</name>
@@ -20,8 +20,9 @@
    <content type="html">&lt;h1&gt;作用域链 复习&lt;/h1&gt;
 
 &lt;p&gt;在对变量对的了解中，变量对象作为执行上下文的数据（包括变量、函数声明、函数形参）的概念已经清楚。
-那作用域有一个什么东西？
-&amp;lt;!-- more --&amp;gt;&lt;/p&gt;
+那作用域有一个什么东西？&lt;/p&gt;
+
+&lt;!-- more --&gt;
 
 &lt;h2&gt;定义&lt;/h2&gt;
 
@@ -44,26 +45,22 @@
 &lt;p&gt;作用域链正是内部上下文所有变量对象（包括父变量对象）的列表。此链用来变量查询。即在上面的例子中，“bar”上下文的作用域链包括AO(bar)、AO(foo)和VO(global)。&lt;/p&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;作用域链与一个执行上下文相关，变量对象的链用于在标识符解析中变量查找。
-函数上下文的作用域链在函数调用时创建的，包含活动对象和这个函数内部的[[scope]]属性.&lt;/p&gt;
+&lt;p&gt;作用域链与一个执行上下文相关，变量对象的链用于在标识符解析中变量查找。函数上下文的作用域链在函数调用时创建的，包含活动对象和这个函数内部的[[scope]]属性.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;在上下文中，它的所有变量如下：
-&lt;code&gt;javascript
-activeExecutionContext = {
-    VO: {...}, // or AO
-    this: thisValue,
-    Scope: [ // Scope chain
-        // 所有变量对象的列表
-        // for identifiers lookup
-    ]
-};
-&lt;/code&gt;
-其中scope如下
-&lt;code&gt;javascript
-Scope = AO + [[Scope]]
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;p&gt;在上下文中，它的所有变量如下：  &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;activeExecutionContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;VO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{...},&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// or AO&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;thisValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;Scope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Scope chain&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 所有变量对象的列表&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// for identifiers lookup&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;其中scope如下  &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Scope&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AO&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;函数的生命周期&lt;/h2&gt;
 </content>
  </entry>

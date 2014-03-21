@@ -153,8 +153,9 @@
     <h1>作用域链 复习</h1>
 
 <p>在对变量对的了解中，变量对象作为执行上下文的数据（包括变量、函数声明、函数形参）的概念已经清楚。
-那作用域有一个什么东西？
-&lt;!-- more --&gt;</p>
+那作用域有一个什么东西？</p>
+
+<!-- more -->
 
 <h2>定义</h2>
 
@@ -177,26 +178,22 @@
 <p>作用域链正是内部上下文所有变量对象（包括父变量对象）的列表。此链用来变量查询。即在上面的例子中，“bar”上下文的作用域链包括AO(bar)、AO(foo)和VO(global)。</p>
 
 <blockquote>
-<p>作用域链与一个执行上下文相关，变量对象的链用于在标识符解析中变量查找。
-函数上下文的作用域链在函数调用时创建的，包含活动对象和这个函数内部的[[scope]]属性.</p>
+<p>作用域链与一个执行上下文相关，变量对象的链用于在标识符解析中变量查找。函数上下文的作用域链在函数调用时创建的，包含活动对象和这个函数内部的[[scope]]属性.</p>
 </blockquote>
 
-<p>在上下文中，它的所有变量如下：
-<code>javascript
-activeExecutionContext = {
-    VO: {...}, // or AO
-    this: thisValue,
-    Scope: [ // Scope chain
-        // 所有变量对象的列表
-        // for identifiers lookup
-    ]
-};
-</code>
-其中scope如下
-<code>javascript
-Scope = AO + [[Scope]]
-</code></p>
-
+<p>在上下文中，它的所有变量如下：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">activeExecutionContext</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">VO</span><span class="o">:</span> <span class="p">{...},</span> <span class="c1">// or AO</span>
+    <span class="k">this</span><span class="o">:</span> <span class="nx">thisValue</span><span class="p">,</span>
+    <span class="nx">Scope</span><span class="o">:</span> <span class="p">[</span> <span class="c1">// Scope chain</span>
+        <span class="c1">// 所有变量对象的列表</span>
+        <span class="c1">// for identifiers lookup</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>其中scope如下  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">Scope</span> <span class="o">=</span> <span class="nx">AO</span> <span class="o">+</span> <span class="p">[[</span><span class="nx">Scope</span><span class="p">]]</span>
+</code></pre></div>
 <h2>函数的生命周期</h2>
 
     <!-- </pre> -->
