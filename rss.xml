@@ -5,14 +5,61 @@
         <description>Code Monkey‘s Blog - ltchronus</description>
         <link>http://username.github.io</link>
         <link>http://username.github.io</link>
-        <lastBuildDate>2014-03-20T21:21:23+08:00</lastBuildDate>
-        <pubDate>2014-03-20T21:21:23+08:00</pubDate>
+        <lastBuildDate>2014-03-21T23:29:04+08:00</lastBuildDate>
+        <pubDate>2014-03-21T23:29:04+08:00</pubDate>
         <ttl>1800</ttl>
 
 
         <item>
                 <title>JavaScript复习9</title>
-                <description></description>
+                <description>&lt;h1&gt;作用域链 复习&lt;/h1&gt;
+
+&lt;p&gt;在对变量对的了解中，变量对象作为执行上下文的数据（包括变量、函数声明、函数形参）的概念已经清楚。
+那作用域有一个什么东西？&lt;/p&gt;
+
+&lt;h2&gt;定义&lt;/h2&gt;
+
+&lt;p&gt;简洁明了地表现作用域的重点，它主要与内部函数相关。
+我们知道，ECMAScript 允许创建内部函数，我们甚至能从父函数中返回这些函数。  &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 30&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;很明显每个上下文拥有自己的变量对象：对于全局上下文，它是全局对象自身；对于函数，它是活动对象。&lt;/p&gt;
+
+&lt;p&gt;作用域链正是内部上下文所有变量对象（包括父变量对象）的列表。此链用来变量查询。即在上面的例子中，“bar”上下文的作用域链包括AO(bar)、AO(foo)和VO(global)。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;作用域链与一个执行上下文相关，变量对象的链用于在标识符解析中变量查找。
+函数上下文的作用域链在函数调用时创建的，包含活动对象和这个函数内部的[[scope]]属性.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在上下文中，它的所有变量如下：
+&lt;code&gt;javascript
+activeExecutionContext = {
+    VO: {...}, // or AO
+    this: thisValue,
+    Scope: [ // Scope chain
+        // 所有变量对象的列表
+        // for identifiers lookup
+    ]
+};
+&lt;/code&gt;
+其中scope如下
+&lt;code&gt;javascript
+Scope = AO + [[Scope]]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;函数的生命周期&lt;/h2&gt;
+</description>
                 <link>http://username.github.io/2014/03/20/javascript9</link>
                 <guid>http://username.github.io/2014/03/20/javascript9</guid>
                 <pubDate>2014-03-20T00:00:00+08:00</pubDate>

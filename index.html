@@ -91,6 +91,8 @@
     
   
     
+  
+    
       
     
   
@@ -158,7 +160,54 @@
     </p>
     
         
-            
+            作用域链 复习
+
+在对变量对的了解中，变量对象作为执行上下文的数据（包括变量、函数声明、函数形参）的概念已经清楚。
+那作用域有一个什么东西？
+
+定义
+
+简洁明了地表现作用域的重点，它主要与内部函数相关。
+我们知道，ECMAScript 允许创建内部函数，我们甚至能从父函数中返回这些函数。  
+var x = 10;
+
+function foo() { 
+    var y = 20; 
+    function bar() {
+        alert(x + y);
+    } 
+    return bar; 
+}
+
+foo()(); // 30
+
+很明显每个上下文拥有自己的变量对象：对于全局上下文，它是全局对象自身；对于函数，它是活动对象。
+
+作用域链正是内部上下文所有变量对象（包括父变量对象）的列表。此链用来变量查询。即在上面的例子中，“bar”上下文的作用域链包括AO(bar)、AO(foo)和VO(global)。
+
+
+作用域链与一个执行上下文相关，变量对象的链用于在标识符解析中变量查找。
+函数上下文的作用域链在函数调用时创建的，包含活动对象和这个函数内部的[[scope]]属性.
+
+
+在上下文中，它的所有变量如下：
+javascript
+activeExecutionContext = {
+    VO: {...}, // or AO
+    this: thisValue,
+    Scope: [ // Scope chain
+        // 所有变量对象的列表
+        // for identifiers lookup
+    ]
+};
+
+其中scope如下
+javascript
+Scope = AO + [[Scope]]
+
+
+函数的生命周期
+
         
         <a href="/2014/03/20/javascript9" type="button" class="btn btn-default">read more</a>
     </div>
