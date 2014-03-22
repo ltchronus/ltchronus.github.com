@@ -196,6 +196,169 @@
 </code></pre></div>
 <h2>函数的生命周期</h2>
 
+<p>在进入上下文时函数声明会放到变量/活动对象中。  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">();</span> <span class="c1">// 30</span>
+</code></pre></div>
+<p>在函数激活时，我们得到正确地结果--30。
+此前，我们仅仅谈到有关当前上下文的变量对象。这里，我们看到变量“y”在函数“foo”中定义（意味着它在foo上下文的AO中），但是变量“x”并未在“foo”上下文中定义，相应地，它也不会添加到“foo”的AO中。乍一看，变量“x”相对于函数“foo”根本就不存在；但正如我们在下面看到的——也仅仅是“一瞥”，我们发现，“foo”上下文的活动对象中仅包含一个属性－－“y”。  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">fooContext</span><span class="p">.</span><span class="nx">AO</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">y</span><span class="o">:</span> <span class="kc">undefined</span> <span class="c1">// undefined – 进入上下文的时候是20 – at activation</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>函数“foo”如何访问到变量“x”？理论上函数应该能访问一个更高一层上下文的变量对象。实际上它正是这样，这种机制是通过函数内部的[[scope]]属性来实现的。
+[[scope]]是所有父变量对象的层级链，处于当前函数上下文之上，在函数创建时存于其中。</p>
+
+<p><strong>注意这重要的一点－－[[scope]]在函数创建时被存储－－静态（不变的），永远永远，直至函数销毁。即：函数可以永不调用，但[[scope]]属性已经写入，并存储在函数对象中。</strong></p>
+
+<p><strong>另外一个需要考虑的是－－与作用域链对比，[[scope]]是函数的一个属性而不是上下文。</strong>考虑到上面的例子，函数“foo”的[[scope]]如下：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">foo</span><span class="p">.[[</span><span class="nx">Scope</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">globalContext</span><span class="p">.</span><span class="nx">VO</span> <span class="c1">// === Global</span>
+<span class="p">];</span>
+</code></pre></div>
+<h2>函数激活</h2>
+
+<p>进入创建AO/VO之后，上下文的Scope属性（变量查找的一个作用域链）作如下定义：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">Scope</span> <span class="o">=</span> <span class="nx">AO</span><span class="o">|</span><span class="nx">VO</span> <span class="o">+</span> <span class="p">[[</span><span class="nx">Scope</span><span class="p">]]</span>
+<span class="c1">//活动对象是作用域数组的第一个对象，即添加到作用域的前端。即等于</span>
+<span class="c1">//Scope = [AO].concat([[Scope]]);</span>
+</code></pre></div>
+<p>这个特点对于标示符解析的处理来说很重要。
+标示符解析是一个处理过程，用来确定一个变量（或函数声明）属于哪个变量对象。</p>
+
+<p>这个算法的返回值中，我们总有一个引用类型，它的base组件是相应的变量对象（或若未找到则为null）,属性名组件是向上查找的标示符的名称。引用类型的详细信息在第13章.this中已讨论。</p>
+
+<p>标识符解析过程包含与变量名对应属性的查找，即作用域中变量对象的连续查找，从最深的上下文开始，绕过作用域链直到最上层。</p>
+
+<p>这样一来，在向上查找中，一个上下文中的局部变量较之于父作用域的变量拥有较高的优先级。万一两个变量有相同的名称但来自不同的作用域，那么第一个被发现的是在最深作用域中。
+我们用一个稍微复杂的例子描述上面讲到的这些。  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span>  <span class="nx">y</span> <span class="o">+</span> <span class="nx">z</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">bar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">();</span> <span class="c1">// 60</span>
+</code></pre></div>
+<p>全局上下文的变量对象是：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">globalContext</span><span class="p">.</span><span class="nx">VO</span> <span class="o">===</span> <span class="nx">Global</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">x</span><span class="o">:</span> <span class="mi">10</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">reference</span> <span class="nx">to</span> <span class="kd">function</span><span class="o">&gt;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>在“foo”创建时，“foo”的[[scope]]属性是：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">foo</span><span class="p">.[[</span><span class="nx">Scope</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">globalContext</span><span class="p">.</span><span class="nx">VO</span>
+<span class="p">];</span>
+</code></pre></div>
+<p>在“foo”激活时（进入上下文），“foo”上下文的活动对象是：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">fooContext</span><span class="p">.</span><span class="nx">AO</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">y</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">reference</span> <span class="nx">to</span> <span class="kd">function</span><span class="o">&gt;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>“foo”上下文的作用域链为：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">fooContext</span><span class="p">.</span><span class="nx">Scope</span> <span class="o">=</span> <span class="nx">fooContext</span><span class="p">.</span><span class="nx">AO</span> <span class="o">+</span> <span class="nx">foo</span><span class="p">.[[</span><span class="nx">Scope</span><span class="p">]]</span> <span class="c1">// i.e.:</span>
+
+<span class="nx">fooContext</span><span class="p">.</span><span class="nx">Scope</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">fooContext</span><span class="p">.</span><span class="nx">AO</span><span class="p">,</span>
+    <span class="nx">globalContext</span><span class="p">.</span><span class="nx">VO</span>
+<span class="p">];</span>
+</code></pre></div>
+<p>内部函数“bar”创建时，其[[scope]]为：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">bar</span><span class="p">.[[</span><span class="nx">Scope</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">fooContext</span><span class="p">.</span><span class="nx">AO</span><span class="p">,</span>
+    <span class="nx">globalContext</span><span class="p">.</span><span class="nx">VO</span>
+<span class="p">];</span>
+</code></pre></div>
+<p>在“bar”激活时，“bar”上下文的活动对象为：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="nx">barContext</span><span class="p">.</span><span class="nx">AO</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">z</span><span class="o">:</span> <span class="mi">30</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>“bar”上下文的作用域链为：
+```javascript
+barContext.Scope = barContext.AO + bar.[[Scope]] // i.e.:</p>
+
+<p>barContext.Scope = [
+    barContext.AO,
+    fooContext.AO,
+    globalContext.VO
+];
+```
+对“x”、“y”、“z”的标识符解析如下：  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="o">-</span> <span class="s2">&quot;x&quot;</span>
+<span class="o">--</span> <span class="nx">barContext</span><span class="p">.</span><span class="nx">AO</span> <span class="c1">// not found</span>
+<span class="o">--</span> <span class="nx">fooContext</span><span class="p">.</span><span class="nx">AO</span> <span class="c1">// not found</span>
+<span class="o">--</span> <span class="nx">globalContext</span><span class="p">.</span><span class="nx">VO</span> <span class="c1">// found - 10</span>
+
+<span class="o">-</span> <span class="s2">&quot;y&quot;</span>
+<span class="o">--</span> <span class="nx">barContext</span><span class="p">.</span><span class="nx">AO</span> <span class="c1">// not found</span>
+<span class="o">--</span> <span class="nx">fooContext</span><span class="p">.</span><span class="nx">AO</span> <span class="c1">// found - 20</span>
+
+<span class="o">-</span> <span class="s2">&quot;z&quot;</span>
+<span class="o">--</span> <span class="nx">barContext</span><span class="p">.</span><span class="nx">AO</span> <span class="c1">// found - 30</span>
+</code></pre></div>
+<h2>作用域特征</h2>
+
+<h3>闭包</h3>
+
+<p>在ECMAScript中，闭包与函数的[[scope]]直接相关，正如我们提到的那样，[[scope]]在函数创建时被存储，与函数共存亡。实际上，闭包是函数代码和其[[scope]]的结合。因此，作为其对象之一，[[Scope]]包括在函数内创建的词法作用域（父变量对象）。当函数进一步激活时，在变量对象的这个词法链（静态的存储于创建时）中，来自较高作用域的变量将被搜寻。  </p>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="nx">foo</span><span class="p">();</span> <span class="c1">// 10, but not 20</span>
+<span class="p">})();</span>
+</code></pre></div>
+<p>我们再次看到，在标识符解析过程中，使用函数创建时定义的词法作用域－－变量解析为10，而不是30。此外，这个例子也清晰的表明，一个函数（这个例子中为从函数“foo”返回的匿名函数）的[[scope]]持续存在，即使是在函数创建的作用域已经完成之后。</p>
+
+<h3>通过构造函数创建的函数的[[scope]]</h3>
+<div class="highlight"><pre><code class="javascript language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">barFD</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// 函数声明</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">y</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">barFE</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="c1">// 函数表达式</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">y</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">barFn</span> <span class="o">=</span> <span class="nb">Function</span><span class="p">(</span><span class="s1">&#39;alert(x); alert(y);&#39;</span><span class="p">);</span>
+
+    <span class="nx">barFD</span><span class="p">();</span> <span class="c1">// 10, 20</span>
+    <span class="nx">barFE</span><span class="p">();</span> <span class="c1">// 10, 20</span>
+    <span class="nx">barFn</span><span class="p">();</span> <span class="c1">// 10, &quot;y&quot; is not defined</span>
+
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">();</span>
+</code></pre></div>
+<p>我们看到，通过函数构造函数（Function constructor）创建的函数“bar”，是不能访问变量“y”的。但这并不意味着函数“barFn”没有[[scope]]属性（否则它不能访问到变量“x”）。<strong>问题在于通过函构造函数创建的函数的[[scope]]属性总是唯一的全局对象</strong>。考虑到这一点，如通过这种函数创建除全局之外的最上层的上下文闭包是不可能的。</p>
+
     <!-- </pre> -->
     <hr>
     <div class="pagination btn-group">
