@@ -902,3 +902,7 @@ body.respond #messageSent {
     margin-top: 20px;
 
 }
+
+.skill{
+    display: inline;
+}
